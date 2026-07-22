@@ -709,7 +709,8 @@ function renderAtletas(state) {
   }).join("");
   $("#atletas-admin").innerHTML = admin
     ? '<button class="btn gold" data-action="draw-order">🎲 Sortear orden de elección</button>' +
-      '<button class="btn ghost" data-action="draw-countries">🎲 Sortear países al azar</button>'
+      '<button class="btn ghost" data-action="draw-countries">🎲 Sortear países al azar</button>' +
+      '<button class="btn ghost" id="save-countries-btn" data-action="save-countries">💾 Guardar países</button>'
     : "";
 }
 
@@ -872,9 +873,31 @@ function onClick(e) {
   var ev = el.dataset.ev ? eventById[el.dataset.ev] : null;
   var st = ev && state.events ? state.events[ev.id] : null;
 
-  var adminOnly = ["draw-event", "reset-event", "draw-countries", "draw-order"];
+  var adminOnly = ["draw-event", "reset-event", "draw-countries", "draw-order", "save-countries"];
   if (adminOnly.indexOf(a) !== -1 && !isAdmin()) { window.alert("Solo el admin puede hacer sorteos."); return; }
 
+  if (a === "save-countries") {
+    // Lee los valores actuales del DOM (lo que el admin tiene seleccionado ahora mismo)
+    var updates = {};
+    document.querySelectorAll(".country-select").forEach(function (sel) {
+      var aid = sel.dataset.countryFor;
+      var code = sel.value;
+      var co = COUNTRIES.filter(function (x) { return x.code === code; })[0] || null;
+      updates["countries." + aid] = co ? { code: co.code, name: co.name, flag: co.flag } : null;
+    });
+    Store.set(updates);
+    var btn = document.getElementById("save-countries-btn");
+    if (btn) {
+      btn.textContent = "✓ Guardado";
+      btn.style.borderColor = "var(--ok)";
+      btn.style.color = "var(--ok)";
+      setTimeout(function () {
+        btn.textContent = "💾 Guardar países";
+        btn.style.borderColor = "";
+        btn.style.color = "";
+      }, 2000);
+    }
+  }
   if (a === "draw-order") {
     var newOrder = shuffle(ATHLETES.map(function (x) { return x.id; }));
     Store.set({ athleteOrder: newOrder });
