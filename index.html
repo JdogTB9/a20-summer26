@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -9,6 +9,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏅</text></svg>" />
+<meta name="theme-color" content="#0a0a0e" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="A20" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230a0a0e'/><text y='.82em' font-size='380' x='66'>🏅</text></svg>" />
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22A20%20Summer%2026%22%2C%22short_name%22%3A%22A20%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a0e%22%2C%22theme_color%22%3A%22%230a0a0e%22%7D" />
 <style>
 /* =============================================================
    A20 · SUMMER 26 — Tema dark premium + oro
@@ -74,8 +80,8 @@ a { color: inherit; text-decoration: none; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(60% 50% at 50% 35%, rgba(212,175,55,.16), transparent 70%), linear-gradient(180deg, #06060a, #0d0d14 70%, var(--bg)); }
 .hero-bg::after { content: ""; position: absolute; inset: -50%; background: conic-gradient(from 0deg, transparent, rgba(212,175,55,.06), transparent 30%); animation: spin 26s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.hero-inner { position: relative; z-index: 2; animation: rise 1s var(--ease) both .2s; }
-.hero .rings { z-index: 2; position: relative; margin-bottom: 8px; }
+.hero-inner { position: relative; z-index: 2; animation: rise 1s var(--ease) both .2s; display: flex; flex-direction: column; align-items: center; }
+.hero .rings { z-index: 2; position: relative; margin-bottom: 2px; }
 @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
 .title { margin: 6px 0 0; line-height: .9; }
 .title .a20 { font-size: clamp(5.5rem, 22vw, 15rem); font-weight: 700; background: linear-gradient(100deg, #fff 10%, var(--gold-2) 35%, var(--gold) 55%, #fff8dc 70%, var(--gold) 90%); background-size: 220% auto; -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 8px 30px rgba(212,175,55,.35)); animation: shine 5s linear infinite; }
@@ -98,8 +104,10 @@ a { color: inherit; text-decoration: none; }
 .sec-head p { color: var(--muted); max-width: 560px; margin: 0 auto; }
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--d, 0s); }
 .reveal.in { opacity: 1; transform: none; }
-.atletas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 18px; }
-.athlete-card { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 18px 20px; text-align: center; overflow: hidden; transition: transform .25s var(--ease), border-color .25s, box-shadow .25s; }
+.atletas-grid { display: flex; flex-wrap: nowrap; gap: 12px; overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+.atletas-grid::-webkit-scrollbar { height: 4px; }
+.atletas-grid::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+.athlete-card { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 14px 18px; text-align: center; overflow: hidden; transition: transform .25s var(--ease), border-color .25s, box-shadow .25s; flex: 0 0 auto; width: clamp(130px, 13vw, 158px); }
 .athlete-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 14px 34px rgba(0,0,0,.4); }
 .athlete-card .dorsal { position: absolute; top: 10px; right: 14px; font-family: "Oswald"; font-size: 1.4rem; color: var(--gold-3); opacity: .6; }
 .flag-big { font-size: 2.6rem; line-height: 1; }
@@ -199,12 +207,24 @@ a { color: inherit; text-decoration: none; }
 .footer { text-align: center; padding: 60px 20px 50px; border-top: 1px solid var(--line); margin-top: 40px; }
 .footer p { margin: 6px 0; }
 .footer .brand-a20, .footer strong { font-family: "Oswald"; letter-spacing: 2px; }
+/* Menú hamburguesa */
+#menu-btn { display: none; background: var(--panel-2); border: 1px solid var(--line); color: var(--text); font-size: 1.3rem; padding: 6px 11px; border-radius: 10px; cursor: pointer; line-height: 1; }
+#mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,14,.97); z-index: 100; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+#mobile-menu.open { display: flex; }
+#mobile-menu a { font-family: "Oswald"; font-size: 2rem; color: var(--gold-2); text-decoration: none; transition: color .2s; }
+#mobile-menu a:hover { color: var(--gold); }
+#mobile-menu-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--muted); font-size: 2rem; cursor: pointer; line-height: 1; }
 @media (max-width: 760px) {
   .nav-links { display: none; }
+  #menu-btn { display: inline-flex; align-items: center; }
   .teams { grid-template-columns: 1fr; }
-  .bracket { gap: 16px; }
+  .bracket { gap: 14px; }
   .section { padding-top: 64px; padding-bottom: 64px; }
   .podium { gap: 8px; } .pod { width: 32%; }
+  .table-wrap { font-size: .78rem; }
+  .ranking-table th, .ranking-table td { padding: 7px 4px; min-width: 0; }
+  .score-input { width: 68px; }
+  .athlete-card { width: clamp(118px, 38vw, 148px); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -220,16 +240,25 @@ a { color: inherit; text-decoration: none; }
   <div class="nav-right">
     <span id="backend-indicator" class="backend"><span class="dot"></span> …</span>
     <button id="admin-btn" class="btn small ghost">🔒 Admin</button>
+    <button id="menu-btn" aria-label="Menú">☰</button>
   </div>
 </header>
+<div id="mobile-menu" role="dialog" aria-modal="true">
+  <button id="mobile-menu-close" aria-label="Cerrar">✕</button>
+  <a href="#atletas">Atletas</a>
+  <a href="#programa">Programa</a>
+  <a href="#pruebas">Pruebas</a>
+  <a href="#competicion">Competición</a>
+  <a href="#ranking">Ranking</a>
+</div>
 
 <section id="top" class="hero">
   <div class="hero-bg"></div>
-  <div class="rings" aria-hidden="true">
-    <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
-    <span class="ring r-yellow"></span><span class="ring r-green"></span>
-  </div>
   <div class="hero-inner">
+    <div class="rings" aria-hidden="true">
+      <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
+      <span class="ring r-yellow"></span><span class="ring r-green"></span>
+    </div>
     <div class="torch" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
     <h1 class="title"><span class="a20">A20</span></h1>
     <p class="subtitle">SUMMER&nbsp;26</p>
@@ -299,14 +328,14 @@ var CONFIG = {
   // Firebase: rellénalo tras crear el proyecto (ver README). Mientras
   // ponga "PEGA_AQUI...", la web funciona en modo LOCAL (este navegador).
   FIREBASE: {
-    apiKey: "PEGA_AQUI_TU_API_KEY",
-    authDomain: "PEGA_AQUI.firebaseapp.com",
-    projectId: "PEGA_AQUI_PROJECT_ID",
-    storageBucket: "PEGA_AQUI.appspot.com",
-    messagingSenderId: "PEGA_AQUI",
-    appId: "PEGA_AQUI",
+    apiKey: "AIzaSyCbSiQGCX3Jb9C7xjxkI0ZxkzlfVIbhCYU",
+    authDomain: "a20-olympic-games.firebaseapp.com",
+    projectId: "a20-olympic-games",
+    storageBucket: "a20-olympic-games.firebasestorage.app",
+    messagingSenderId: "275476693846",
+    appId: "1:275476693846:web:712d96181525a5d91d0cf7",
   },
-  ADMIN_PASSWORD: "a20admin",
+  ADMIN_PASSWORD: "A20ADMIN",
   POINTS: { byPlace: [10, 8, 6, 5, 4, 3, 2], teamWin: 8, teamLose: 0, homeRun: 3 },
   ATHLETES: [
     { id: "david", name: "David", dorsal: 1 },
@@ -505,14 +534,12 @@ function computeStandings(state, events, athletes, cfg) {
 }
 
 // =============================================================
-//  STORE (Firestore compat, con fallback a localStorage)
+//  STORE (solo Firestore — sin modo local)
 // =============================================================
 var Store = (function () {
-  var COL = "a20", DOCID = "state", LSKEY = "a20-state-v1";
-  var backend = null, cache = null, listeners = [], ref = null, bc = null;
+  var COL = "a20", DOCID = "state";
+  var cache = null, listeners = [], ref = null;
 
-  function isConfigured() { var k = CONFIG.FIREBASE.apiKey || ""; return !!k && k.indexOf("PEGA_AQUI") !== 0; }
-  function fbAvailable() { return typeof firebase !== "undefined" && !!firebase.initializeApp; }
   function notify() { listeners.forEach(function (cb) { cb(cache); }); }
   function subscribe(cb) { listeners.push(cb); if (cache) cb(cache); return function () { listeners = listeners.filter(function (f) { return f !== cb; }); }; }
   function getState() { return cache; }
@@ -521,49 +548,40 @@ var Store = (function () {
     for (var i = 0; i < keys.length - 1; i++) { if (o[keys[i]] == null || typeof o[keys[i]] !== "object") o[keys[i]] = {}; o = o[keys[i]]; }
     o[keys[keys.length - 1]] = value;
   }
-  function initLocal(def) {
-    var raw = null; try { raw = localStorage.getItem(LSKEY); } catch (e) {}
-    cache = raw ? JSON.parse(raw) : def;
-    try { if (!raw) localStorage.setItem(LSKEY, JSON.stringify(cache)); } catch (e) {}
-    try { bc = new BroadcastChannel("a20"); bc.onmessage = function (e) { cache = e.data; notify(); }; } catch (e) { bc = null; }
-    try { window.addEventListener("storage", function (e) { if (e.key === LSKEY && e.newValue) { cache = JSON.parse(e.newValue); notify(); } }); } catch (e) {}
-    notify();
+  function showError(msg) {
+    var ind = document.getElementById("backend-indicator");
+    if (ind) { ind.innerHTML = '<span style="color:#ff6b6b">⚠️ ' + msg + '</span>'; }
   }
-  function localPersist() { try { localStorage.setItem(LSKEY, JSON.stringify(cache)); } catch (e) {} if (bc) { try { bc.postMessage(cache); } catch (e) {} } }
-
   function init(def) {
-    return new Promise(function (resolve) {
-      if (isConfigured() && fbAvailable()) {
-        try {
-          firebase.initializeApp(CONFIG.FIREBASE);
-          var db = firebase.firestore();
-          ref = db.collection(COL).doc(DOCID);
-          backend = "firestore";
-          ref.get().then(function (snap) { if (!snap.exists) return ref.set(def); })
-            .catch(function () {})
-            .then(function () {
-              ref.onSnapshot(function (s) { if (s.exists) { cache = s.data(); notify(); } });
-              resolve(backend);
-            });
-          return;
-        } catch (e) { console.error("Firebase falló, modo local:", e); }
-      }
-      backend = "local"; initLocal(def); resolve(backend);
+    return new Promise(function (resolve, reject) {
+      try {
+        firebase.initializeApp(CONFIG.FIREBASE);
+        var db = firebase.firestore();
+        ref = db.collection(COL).doc(DOCID);
+        ref.get()
+          .then(function (snap) { if (!snap.exists) return ref.set(def); })
+          .then(function () {
+            ref.onSnapshot(
+              function (s) { if (s.exists) { cache = s.data(); notify(); } },
+              function (e) { showError("Conexión perdida"); console.error(e); }
+            );
+            resolve();
+          })
+          .catch(function (e) { showError("Sin conexión Firebase"); console.error(e); reject(e); });
+      } catch (e) { showError("Error Firebase"); console.error(e); reject(e); }
     });
   }
   function set(entries) {
     if (!cache) cache = {};
     Object.keys(entries).forEach(function (p) { setNested(cache, p, entries[p]); });
     notify();
-    if (backend === "firestore" && ref) { return ref.update(entries).catch(function (e) { console.error(e); }); }
-    localPersist(); return Promise.resolve();
+    return ref ? ref.update(entries).catch(function (e) { console.error(e); }) : Promise.resolve();
   }
   function resetAll(def) {
     cache = JSON.parse(JSON.stringify(def)); notify();
-    if (backend === "firestore" && ref) { return ref.set(cache); }
-    localPersist(); return Promise.resolve();
+    return ref ? ref.set(cache) : Promise.resolve();
   }
-  return { init: init, set: set, resetAll: resetAll, subscribe: subscribe, getState: getState, backendName: function () { return backend; } };
+  return { init: init, set: set, resetAll: resetAll, subscribe: subscribe, getState: getState };
 })();
 
 // =============================================================
@@ -863,19 +881,37 @@ function refreshReveal() {
 }
 
 // =============================================================
+//  MENÚ HAMBURGUESA
+// =============================================================
+(function () {
+  var btn = document.getElementById("menu-btn");
+  var menu = document.getElementById("mobile-menu");
+  var closeBtn = document.getElementById("mobile-menu-close");
+  if (!btn || !menu) return;
+  function openMenu() { menu.classList.add("open"); document.body.style.overflow = "hidden"; }
+  function closeMenu() { menu.classList.remove("open"); document.body.style.overflow = ""; }
+  btn.addEventListener("click", openMenu);
+  if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+  menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", closeMenu); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+})();
+
+// =============================================================
 //  ARRANQUE
 // =============================================================
 renderStatic();
 wireEvents();
-Store.init(buildInitialState()).then(function (backend) {
+(function () {
   var ind = document.getElementById("backend-indicator");
-  if (ind) {
-    if (backend === "firestore") { ind.innerHTML = '<span class="dot live"></span> En directo'; ind.title = "Conectado a Firebase: todos veis lo mismo en tiempo real."; }
-    else { ind.innerHTML = '<span class="dot local"></span> Modo local'; ind.title = "Sin Firebase configurado: los datos son solo de este navegador. Ver README."; }
-  }
-  Store.subscribe(render);
-  if (Store.getState()) render(Store.getState());
-});
+  if (ind) ind.innerHTML = '<span class="dot"></span> Conectando…';
+  Store.init(buildInitialState()).then(function () {
+    if (ind) { ind.innerHTML = '<span class="dot live"></span> En directo'; ind.title = "Firebase conectado. Todos veis los datos en tiempo real."; }
+    Store.subscribe(render);
+    if (Store.getState()) render(Store.getState());
+  }).catch(function () {
+    if (ind) { ind.innerHTML = '<span style="color:#ff6b6b">⚠️ Sin conexión</span>'; ind.title = "No se pudo conectar con Firebase. Comprueba la conexión a internet."; }
+  });
+})();
 
 })();
 </script>
