@@ -1,95 +1,883 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A20 · Summer 26 — Olimpiadas Casa Aveinte</title>
-  <meta name="description" content="A20 Summer 26 — Olimpiadas de Casa Aveinte. Programa, pruebas y ranking en directo." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏅</text></svg>" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A20 · Summer 26 — Olimpiadas Casa Aveinte</title>
+<meta name="description" content="A20 Summer 26 — Olimpiadas de Casa Aveinte. Programa, pruebas y ranking en directo." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏅</text></svg>" />
+<style>
+/* =============================================================
+   A20 · SUMMER 26 — Tema dark premium + oro
+   ============================================================= */
+:root {
+  --bg: #0a0a0e; --bg2: #101017;
+  --panel: rgba(255,255,255,0.035); --panel-2: rgba(255,255,255,0.06); --line: rgba(255,255,255,0.09);
+  --gold: #d4af37; --gold-2: #f7e39c; --gold-3: #b8912a;
+  --text: #eceae2; --muted: #9b988f;
+  --ok: #00a651; --blue: #0081c8; --yellow: #fcb131; --green: #00a651; --red: #ee334e;
+  --radius: 16px; --maxw: 1160px; --ease: cubic-bezier(.22,.61,.36,1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0; font-family: "Inter", system-ui, sans-serif; color: var(--text); background: var(--bg);
+  background-image:
+    radial-gradient(900px 500px at 80% -5%, rgba(212,175,55,.12), transparent 60%),
+    radial-gradient(700px 500px at 0% 10%, rgba(0,129,200,.10), transparent 55%);
+  overflow-x: hidden; line-height: 1.55;
+}
+h1,h2,h3,h4,.kicker,.brand-a20,.title { font-family: "Oswald", sans-serif; letter-spacing: .5px; }
+a { color: inherit; text-decoration: none; }
+.muted { color: var(--muted); } .small { font-size: .85rem; }
+.center { text-align: center; margin-top: 26px; } .ctr { text-align: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px;
+  border: 1px solid var(--line); font-weight: 600; font-size: .95rem; cursor: pointer;
+  background: transparent; color: var(--text);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s, border-color .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.small { padding: 8px 14px; font-size: .82rem; }
+.btn.gold { background: linear-gradient(135deg, var(--gold-2), var(--gold) 55%, var(--gold-3)); color: #241d05; border-color: transparent; box-shadow: 0 6px 22px rgba(212,175,55,.28); }
+.btn.gold:hover { box-shadow: 0 10px 30px rgba(212,175,55,.45); }
+.btn.ghost { background: var(--panel-2); }
+.btn.ghost:hover { border-color: var(--gold); color: var(--gold-2); }
+.nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 20px; padding: 12px clamp(16px,4vw,40px); background: rgba(10,10,14,.72); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand-a20 { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, var(--gold-2), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.brand-sum { font-size: .7rem; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+.nav-links { display: flex; gap: 22px; margin-left: auto; }
+.nav-links a { font-size: .9rem; color: var(--muted); position: relative; transition: color .2s; }
+.nav-links a:hover { color: var(--gold-2); }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0; background: var(--gold); transition: width .25s var(--ease); }
+.nav-links a:hover::after { width: 100%; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.backend { font-size: .75rem; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); display: inline-block; }
+.dot.live { background: var(--ok); box-shadow: 0 0 8px var(--ok); animation: pulse 1.8s infinite; }
+.dot.local { background: var(--yellow); }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.rings { position: relative; width: 260px; height: 120px; margin: 0 auto; }
+.rings.small { transform: scale(.42); height: 60px; opacity: .5; }
+.ring { position: absolute; width: 74px; height: 74px; border: 7px solid #fff; border-radius: 50%; top: 0; opacity: 0; transform: scale(.4); animation: ringIn .7s var(--ease) forwards; }
+.ring.r-blue { left: 0; border-color: var(--blue); animation-delay: .1s; }
+.ring.r-black { left: 62px; border-color: #e9e9e9; animation-delay: .2s; }
+.ring.r-red { left: 124px; border-color: var(--red); animation-delay: .3s; }
+.ring.r-yellow { left: 31px; top: 34px; border-color: var(--yellow); animation-delay: .45s; }
+.ring.r-green { left: 93px; top: 34px; border-color: var(--green); animation-delay: .55s; }
+@keyframes ringIn { to { opacity: 1; transform: scale(1); } }
+.hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 90px 20px 40px; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(60% 50% at 50% 35%, rgba(212,175,55,.16), transparent 70%), linear-gradient(180deg, #06060a, #0d0d14 70%, var(--bg)); }
+.hero-bg::after { content: ""; position: absolute; inset: -50%; background: conic-gradient(from 0deg, transparent, rgba(212,175,55,.06), transparent 30%); animation: spin 26s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.hero-inner { position: relative; z-index: 2; animation: rise 1s var(--ease) both .2s; }
+.hero .rings { z-index: 2; position: relative; margin-bottom: 8px; }
+@keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+.title { margin: 6px 0 0; line-height: .9; }
+.title .a20 { font-size: clamp(5.5rem, 22vw, 15rem); font-weight: 700; background: linear-gradient(100deg, #fff 10%, var(--gold-2) 35%, var(--gold) 55%, #fff8dc 70%, var(--gold) 90%); background-size: 220% auto; -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 8px 30px rgba(212,175,55,.35)); animation: shine 5s linear infinite; }
+@keyframes shine { to { background-position: 220% center; } }
+.subtitle { margin: 4px 0 0; font-family: "Oswald"; font-size: clamp(1.3rem, 5vw, 2.6rem); letter-spacing: clamp(6px, 3vw, 18px); color: var(--gold-2); font-weight: 600; }
+.tagline { margin: 18px auto 0; max-width: 560px; color: var(--muted); font-size: 1rem; }
+.hero-cta { margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.scroll-hint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); color: var(--gold); z-index: 2; animation: bob 1.8s infinite; }
+@keyframes bob { 0%,100% { transform: translate(-50%,0); } 50% { transform: translate(-50%,8px); } }
+.torch { position: relative; width: 40px; height: 70px; margin: 0 auto 6px; }
+.torch .stick { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 8px; height: 40px; background: linear-gradient(var(--gold-2), var(--gold-3)); border-radius: 3px; }
+.torch .flame { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 22px; height: 34px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: radial-gradient(circle at 50% 75%, #fff6d5, var(--yellow) 40%, #ff7b1c 75%, #e0350f); filter: blur(.4px); box-shadow: 0 0 26px 6px rgba(255,140,20,.55); animation: flick .18s infinite alternate; transform-origin: bottom center; }
+@keyframes flick { from { transform: translateX(-50%) scale(1) rotate(-2deg); } to { transform: translateX(-50%) scale(1.08,1.12) rotate(2deg); } }
+.section { max-width: var(--maxw); margin: 0 auto; padding: clamp(60px,9vw,110px) clamp(16px,4vw,40px); }
+.section.alt { max-width: none; background: linear-gradient(180deg, transparent, rgba(255,255,255,.02), transparent); }
+.section.alt > * { max-width: var(--maxw); margin-left: auto; margin-right: auto; }
+.sec-head { text-align: center; margin-bottom: 46px; }
+.kicker { display: inline-block; font-size: .78rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); border: 1px solid var(--line); padding: 5px 14px; border-radius: 999px; }
+.sec-head h2 { font-size: clamp(2rem,5vw,3.2rem); margin: 14px 0 8px; font-weight: 700; }
+.sec-head p { color: var(--muted); max-width: 560px; margin: 0 auto; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--d, 0s); }
+.reveal.in { opacity: 1; transform: none; }
+.atletas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 18px; }
+.athlete-card { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 18px 20px; text-align: center; overflow: hidden; transition: transform .25s var(--ease), border-color .25s, box-shadow .25s; }
+.athlete-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+.athlete-card .dorsal { position: absolute; top: 10px; right: 14px; font-family: "Oswald"; font-size: 1.4rem; color: var(--gold-3); opacity: .6; }
+.flag-big { font-size: 2.6rem; line-height: 1; }
+.athlete-card h3 { margin: 10px 0 2px; font-size: 1.3rem; }
+.athlete-card .country { color: var(--muted); font-size: .9rem; margin: 0; }
+.country-select { margin-top: 12px; width: 100%; padding: 8px; border-radius: 10px; background: #14141c; color: var(--text); border: 1px solid var(--line); }
+.programa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 22px; }
+.day-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.day-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.day-ic { font-size: 2rem; }
+.day-head h3 { margin: 0; font-size: 1.5rem; }
+.day-head p { margin: 0; color: var(--gold-2); font-size: .85rem; letter-spacing: 1px; text-transform: uppercase; }
+.timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.timeline li { display: flex; gap: 14px; padding: 12px 0; border-left: 2px solid var(--line); padding-left: 18px; position: relative; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 18px; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(212,175,55,.15); }
+.t-time { font-size: .72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); min-width: 60px; padding-top: 2px; }
+.t-body { display: flex; flex-direction: column; }
+.t-body strong { color: var(--text); } .t-body span { color: var(--muted); font-size: .88rem; }
+.pruebas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 20px; }
+.event-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; transition: transform .25s var(--ease), border-color .25s; }
+.event-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.ev-top { display: flex; justify-content: space-between; align-items: center; }
+.ev-ic { font-size: 2rem; }
+.tag { font-size: .72rem; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.tag.day { color: var(--yellow); border-color: rgba(252,177,49,.3); }
+.tag.night { color: #8ea2ff; border-color: rgba(120,140,255,.3); }
+.event-card h3 { margin: 14px 0 2px; font-size: 1.4rem; }
+.ev-tag { color: var(--gold-2); font-size: .9rem; margin: 0 0 10px; }
+.ev-rules { color: var(--muted); font-size: .9rem; }
+.ev-scoring { font-size: .85rem; color: #cfccc2; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 12px; }
+.competicion-grid { display: flex; flex-direction: column; gap: 14px; }
+.comp-block { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.comp-block summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 18px 22px; font-family: "Oswald"; font-size: 1.35rem; }
+.comp-block summary::-webkit-details-marker { display: none; }
+.comp-block summary .tag { margin-left: auto; font-size: .72rem; }
+.comp-block[open] summary { border-bottom: 1px solid var(--line); background: var(--panel-2); }
+.comp-inner { padding: 20px 22px 24px; }
+.comp-admin { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.chip { display: inline-flex; align-items: center; gap: 4px; font-size: .92rem; }
+.chip.empty { color: var(--muted); }
+.bracket { display: flex; gap: 26px; overflow-x: auto; padding-bottom: 8px; }
+.bracket .round { display: flex; flex-direction: column; gap: 16px; min-width: 210px; justify-content: center; }
+.bracket .round h4 { margin: 0 0 4px; color: var(--gold-2); font-size: .95rem; text-transform: uppercase; letter-spacing: 1px; }
+.match { background: #12121a; border: 1px solid var(--line); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 8px; position: relative; }
+.match.final { border-color: var(--gold); box-shadow: 0 0 20px rgba(212,175,55,.15); }
+.m-label { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.vs { text-align: center; font-size: .7rem; color: var(--muted); }
+.slot { width: 100%; text-align: left; padding: 9px 12px; border-radius: 8px; cursor: pointer; background: var(--panel-2); border: 1px solid transparent; color: var(--text); font-size: .9rem; transition: background .2s, border-color .2s, transform .15s; }
+.slot:hover:not(:disabled) { border-color: var(--gold); transform: translateX(2px); }
+.slot:disabled { opacity: .5; cursor: not-allowed; }
+.slot.won { background: linear-gradient(135deg, rgba(212,175,55,.28), rgba(212,175,55,.12)); border-color: var(--gold); font-weight: 600; }
+.slot.bye { opacity: .35; }
+.pairchip { display: flex; flex-direction: column; gap: 2px; }
+.champ-banner { background: linear-gradient(135deg, rgba(212,175,55,.22), transparent); border: 1px solid var(--gold); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; font-family: "Oswald"; font-size: 1.15rem; animation: popIn .5s var(--ease); }
+@keyframes popIn { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+.solo-note { font-size: .85rem; color: var(--muted); margin-bottom: 12px; }
+.pick-box { background: #12121a; border: 1px dashed var(--gold); border-radius: 12px; padding: 12px; margin-top: 6px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.pick-box p { width: 100%; margin: 0 0 6px; font-size: .88rem; }
+.score-table, .ranking-table { width: 100%; border-collapse: collapse; }
+.score-table th, .score-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); font-size: .92rem; }
+.score-table th { color: var(--muted); font-weight: 600; text-align: left; font-size: .78rem; text-transform: uppercase; letter-spacing: 1px; }
+.score-input { width: 90px; padding: 7px 10px; border-radius: 8px; background: #14141c; border: 1px solid var(--line); color: var(--text); }
+.score-table .pts { color: var(--gold-2); font-weight: 600; }
+.teams { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.team { background: #12121a; border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.team.winner { border-color: var(--gold); box-shadow: 0 0 20px rgba(212,175,55,.15); }
+.team-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.team-head h4 { margin: 0; font-size: 1.2rem; }
+.team-list { list-style: none; margin: 0; padding: 0; }
+.team-list li { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.team-list li .pts { margin-left: auto; color: var(--gold-2); font-size: .82rem; font-weight: 600; }
+.hr { display: inline-flex; align-items: center; gap: 6px; }
+.hr-btn { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); cursor: pointer; font-weight: 700; }
+.hr-btn:hover { border-color: var(--gold); color: var(--gold-2); }
+.hr-n { font-size: .78rem; color: var(--muted); min-width: 40px; text-align: center; }
+.podium { display: flex; align-items: flex-end; justify-content: center; gap: 16px; margin-bottom: 46px; min-height: 210px; }
+.pod { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 150px; }
+.pod-name { font-weight: 600; font-size: .95rem; text-align: center; }
+.pod-medal { font-size: 2rem; }
+.pod-bar { width: 100%; height: var(--h,60px); border-radius: 12px 12px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; font-family: "Oswald"; font-size: 1.8rem; font-weight: 700; animation: grow .8s var(--ease) both; }
+@keyframes grow { from { height: 0; opacity: .3; } }
+.pod.gold .pod-bar { background: linear-gradient(180deg, var(--gold-2), var(--gold-3)); color: #241d05; box-shadow: 0 0 30px rgba(212,175,55,.4); }
+.pod.silver .pod-bar { background: linear-gradient(180deg, #e7e7ef, #a9a9b6); color: #22222a; }
+.pod.bronze .pod-bar { background: linear-gradient(180deg, #e0a56b, #a3652f); color: #2a1608; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+.ranking-table th, .ranking-table td { padding: 12px 12px; border-bottom: 1px solid var(--line); font-size: .92rem; }
+.ranking-table thead th { background: var(--panel-2); color: var(--muted); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: 1px; position: sticky; top: 0; }
+.ranking-table .who { text-align: left; }
+.ranking-table .rank { font-family: "Oswald"; font-size: 1.1rem; color: var(--gold-2); }
+.ranking-table .total { font-family: "Oswald"; font-size: 1.2rem; font-weight: 700; color: var(--gold-2); }
+.ranking-table tr.gold { background: linear-gradient(90deg, rgba(212,175,55,.14), transparent); }
+.ranking-table tr.silver { background: linear-gradient(90deg, rgba(200,200,215,.10), transparent); }
+.ranking-table tr.bronze { background: linear-gradient(90deg, rgba(205,127,50,.12), transparent); }
+.ranking-table tr.last td.who { color: #ff8f8f; }
+.ranking-table tbody tr { transition: background .2s; }
+.ranking-table tbody tr:hover { background: var(--panel-2); }
+.footer { text-align: center; padding: 60px 20px 50px; border-top: 1px solid var(--line); margin-top: 40px; }
+.footer p { margin: 6px 0; }
+.footer .brand-a20, .footer strong { font-family: "Oswald"; letter-spacing: 2px; }
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .teams { grid-template-columns: 1fr; }
+  .bracket { gap: 16px; }
+  .section { padding-top: 64px; padding-bottom: 64px; }
+  .podium { gap: 8px; } .pod { width: 32%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <header class="nav">
-    <a class="brand" href="#top"><span class="brand-a20">A20</span><span class="brand-sum">Summer 26</span></a>
-    <nav id="nav-links" class="nav-links"></nav>
-    <div class="nav-right">
-      <span id="backend-indicator" class="backend"><span class="dot"></span> …</span>
-      <button id="admin-btn" class="btn small ghost">🔒 Admin</button>
+<header class="nav">
+  <a class="brand" href="#top"><span class="brand-a20">A20</span><span class="brand-sum">Summer 26</span></a>
+  <nav id="nav-links" class="nav-links"></nav>
+  <div class="nav-right">
+    <span id="backend-indicator" class="backend"><span class="dot"></span> …</span>
+    <button id="admin-btn" class="btn small ghost">🔒 Admin</button>
+  </div>
+</header>
+
+<section id="top" class="hero">
+  <div class="hero-bg"></div>
+  <div class="rings" aria-hidden="true">
+    <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
+    <span class="ring r-yellow"></span><span class="ring r-green"></span>
+  </div>
+  <div class="hero-inner">
+    <div class="torch" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
+    <h1 class="title"><span class="a20">A20</span></h1>
+    <p class="subtitle">SUMMER&nbsp;26</p>
+    <p class="tagline">Olimpiadas de Casa Aveinte · 7 atletas · 6 pruebas · 1 leyenda</p>
+    <div class="hero-cta">
+      <a href="#programa" class="btn gold">Ver programa</a>
+      <a href="#ranking" class="btn ghost">Ranking en directo</a>
     </div>
-  </header>
+  </div>
+  <div class="scroll-hint">▼</div>
+</section>
 
-  <!-- HERO -->
-  <section id="top" class="hero">
-    <div class="hero-bg"></div>
-    <div class="rings" aria-hidden="true">
-      <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
-      <span class="ring r-yellow"></span><span class="ring r-green"></span>
-    </div>
-    <div class="hero-inner">
-      <div class="torch" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
-      <h1 class="title"><span class="a20">A20</span></h1>
-      <p class="subtitle">SUMMER&nbsp;26</p>
-      <p class="tagline">Olimpiadas de Casa Aveinte · 7 atletas · 6 pruebas · 1 leyenda</p>
-      <div class="hero-cta">
-        <a href="#programa" class="btn gold">Ver programa</a>
-        <a href="#ranking" class="btn ghost">Ranking en directo</a>
-      </div>
-    </div>
-    <div class="scroll-hint">▼</div>
-  </section>
+<section id="atletas" class="section">
+  <div class="sec-head reveal"><span class="kicker">Delegaciones</span><h2>Atletas</h2>
+    <p>Cada representante compite bajo la bandera de su país (asignado en la ceremonia de apertura).</p></div>
+  <div id="atletas-grid" class="atletas-grid"></div>
+  <div id="atletas-admin" class="center"></div>
+</section>
 
-  <!-- ATLETAS -->
-  <section id="atletas" class="section">
-    <div class="sec-head reveal"><span class="kicker">Delegaciones</span><h2>Atletas</h2>
-      <p>Cada representante compite bajo la bandera de su país (asignado en la ceremonia de apertura).</p></div>
-    <div id="atletas-grid" class="atletas-grid"></div>
-    <div id="atletas-admin" class="center"></div>
-  </section>
+<section id="programa" class="section alt">
+  <div class="sec-head reveal"><span class="kicker">Fin de semana</span><h2>Programa</h2>
+    <p>Viernes de apertura, sábado de gloria, domingo de leyendas.</p></div>
+  <div id="programa-grid" class="programa-grid"></div>
+</section>
 
-  <!-- PROGRAMA -->
-  <section id="programa" class="section alt">
-    <div class="sec-head reveal"><span class="kicker">Fin de semana</span><h2>Programa</h2>
-      <p>Viernes de apertura, sábado de gloria, domingo de leyendas.</p></div>
-    <div id="programa-grid" class="programa-grid"></div>
-  </section>
+<section id="pruebas" class="section">
+  <div class="sec-head reveal"><span class="kicker">Disciplinas</span><h2>Las Pruebas</h2>
+    <p>Seis disciplinas olímpicas. Cuatro de día, dos de noche.</p></div>
+  <div id="pruebas-grid" class="pruebas-grid"></div>
+</section>
 
-  <!-- PRUEBAS -->
-  <section id="pruebas" class="section">
-    <div class="sec-head reveal"><span class="kicker">Disciplinas</span><h2>Las Pruebas</h2>
-      <p>Seis disciplinas olímpicas. Cuatro de día, dos de noche.</p></div>
-    <div id="pruebas-grid" class="pruebas-grid"></div>
-  </section>
+<section id="competicion" class="section alt">
+  <div class="sec-head reveal"><span class="kicker">En juego</span><h2>Competición</h2>
+    <p>Sorteos y resultados de cada prueba. Los sorteos los hace el admin; los resultados los mete cualquiera.</p></div>
+  <div id="competicion-grid" class="competicion-grid"></div>
+</section>
 
-  <!-- COMPETICIÓN -->
-  <section id="competicion" class="section alt">
-    <div class="sec-head reveal"><span class="kicker">En juego</span><h2>Competición</h2>
-      <p>Sorteos y resultados de cada prueba. Los sorteos los hace el admin; los resultados los mete cualquiera.</p></div>
-    <div id="competicion-grid" class="competicion-grid"></div>
-  </section>
+<section id="ranking" class="section">
+  <div class="sec-head reveal"><span class="kicker">Medallero</span><h2>Ranking en directo</h2>
+    <p>Se actualiza solo con cada resultado.</p></div>
+  <div id="podium" class="podium"></div>
+  <div class="table-wrap"><table id="ranking-table" class="ranking-table"></table></div>
+  <div class="center"><button id="reset-all-btn" class="btn ghost small">🧹 Reiniciar torneo (admin)</button></div>
+</section>
 
-  <!-- RANKING -->
-  <section id="ranking" class="section">
-    <div class="sec-head reveal"><span class="kicker">Medallero</span><h2>Ranking en directo</h2>
-      <p>Se actualiza solo con cada resultado.</p></div>
-    <div id="podium" class="podium"></div>
-    <div class="table-wrap"><table id="ranking-table" class="ranking-table"></table></div>
-    <div class="center"><button id="reset-all-btn" class="btn ghost small">🧹 Reiniciar torneo (admin)</button></div>
-  </section>
+<footer class="footer">
+  <div class="rings small" aria-hidden="true">
+    <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
+    <span class="ring r-yellow"></span><span class="ring r-green"></span>
+  </div>
+  <p><strong>A20 · SUMMER 26</strong></p>
+  <p class="muted">Casa Aveinte · David · Iñaki · Charlie · Dani · Viti · Javi · Jorge</p>
+</footer>
 
-  <footer class="footer">
-    <div class="rings small" aria-hidden="true">
-      <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
-      <span class="ring r-yellow"></span><span class="ring r-green"></span>
-    </div>
-    <p><strong>A20 · SUMMER 26</strong></p>
-    <p class="muted">Casa Aveinte · David · Iñaki · Charlie · Dani · Viti · Javi · Jorge</p>
-  </footer>
+<!-- Firebase (compat) — solo se usa si rellenas la config abajo. Sin internet o sin config, la web usa modo local. -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script type="module" src="js/app.js"></script>
+<script>
+"use strict";
+(function () {
+
+// =============================================================
+//  CONFIGURACIÓN  — edita esta sección a tu gusto
+// =============================================================
+var CONFIG = {
+  // Firebase: rellénalo tras crear el proyecto (ver README). Mientras
+  // ponga "PEGA_AQUI...", la web funciona en modo LOCAL (este navegador).
+  FIREBASE: {
+    apiKey: "PEGA_AQUI_TU_API_KEY",
+    authDomain: "PEGA_AQUI.firebaseapp.com",
+    projectId: "PEGA_AQUI_PROJECT_ID",
+    storageBucket: "PEGA_AQUI.appspot.com",
+    messagingSenderId: "PEGA_AQUI",
+    appId: "PEGA_AQUI",
+  },
+  ADMIN_PASSWORD: "a20admin",
+  POINTS: { byPlace: [10, 8, 6, 5, 4, 3, 2], teamWin: 8, teamLose: 0, homeRun: 3 },
+  ATHLETES: [
+    { id: "david", name: "David", dorsal: 1 },
+    { id: "inaki", name: "Iñaki", dorsal: 2 },
+    { id: "charlie", name: "Charlie", dorsal: 3 },
+    { id: "dani", name: "Dani", dorsal: 4 },
+    { id: "viti", name: "Viti", dorsal: 5 },
+    { id: "javi", name: "Javi", dorsal: 6 },
+    { id: "jorge", name: "Jorge", dorsal: 7 },
+  ],
+  COUNTRIES: [
+    { code: "ES", name: "España", flag: "🇪🇸" }, { code: "FR", name: "Francia", flag: "🇫🇷" },
+    { code: "IT", name: "Italia", flag: "🇮🇹" }, { code: "DE", name: "Alemania", flag: "🇩🇪" },
+    { code: "PT", name: "Portugal", flag: "🇵🇹" }, { code: "BR", name: "Brasil", flag: "🇧🇷" },
+    { code: "AR", name: "Argentina", flag: "🇦🇷" }, { code: "US", name: "Estados Unidos", flag: "🇺🇸" },
+    { code: "JP", name: "Japón", flag: "🇯🇵" }, { code: "NL", name: "Países Bajos", flag: "🇳🇱" },
+    { code: "JM", name: "Jamaica", flag: "🇯🇲" }, { code: "NO", name: "Noruega", flag: "🇳🇴" },
+  ],
+  EVENTS: [
+    { id: "futbolgolf", name: "Fútbol-Golf", type: "score", order: "asc", day: "day", slot: "Sábado · Mañana", icon: "⛳",
+      tagline: "Recorrido de hoyos por el jardín",
+      rules: "Recorrido de \"hoyos\" repartidos por el jardín (dianas, cubos, porterías). Cada jugador intenta meter la pelota en cada hoyo con el menor número de golpes (chuts). Se suman los golpes de todos los hoyos: gana quien menos acumule. Empates permitidos.",
+      scoring: "Ranking por golpes totales (asc). 1º=10, 2º=8, 3º=6, 4º=5, 5º=4, 6º=3, 7º=2." },
+    { id: "baseball", name: "Béisbol", type: "team", hasHomeRuns: true, teamSizes: [4, 3], day: "day", slot: "Sábado · Mañana", icon: "⚾",
+      tagline: "2 equipos · 3 vs 3 + suplente",
+      rules: "Dos equipos (3 vs 3 en el campo + 1 suplente en el equipo de 4, rotando). Bola de goma y conos como bases. Se juega un partido; gana el equipo con más carreras.",
+      scoring: "Equipo ganador: +8 pts a cada jugador. Perdedor: 0. Cada home run: +3 pts extra al bateador (acumulable, cuente quien lo consiga)." },
+    { id: "pingpong", name: "Ping Pong", type: "bracket", day: "day", slot: "Sábado · Tarde", icon: "🏓",
+      tagline: "Eliminatoria individual",
+      rules: "Torneo de eliminatoria individual (cuadro de 8 con 1 bye). Partidos al mejor de lo que decidáis (recomendado: 1 set a 11, o al mejor de 3). El que pierde queda eliminado.",
+      scoring: "Por posición final. Campeón=10, finalista=8, 3er puesto=6, 4º=5, resto=4." },
+    { id: "padel", name: "Pádel", type: "padel", day: "day", slot: "Sábado · Tarde", icon: "🎾",
+      tagline: "Parejas · con mecánica del jugador solo",
+      rules: "Eliminatoria por parejas. Al ser 7, el sorteo forma 3 parejas y 1 jugador solo. El jugador solo espera; cuando una pareja queda eliminada, elige a uno de esos dos como compañero y entra a competir. Los dos de la pareja ganadora suman los mismos puntos.",
+      scoring: "Por posición de la pareja: campeones=10 (cada uno), finalistas=8, 3er puesto=6, jugador descartado=5." },
+    { id: "beerpong", name: "Beer Pong", type: "bracket", day: "night", slot: "Sábado · Noche", icon: "🍺",
+      tagline: "Eliminatoria individual",
+      rules: "Torneo de eliminatoria individual (cuadro de 8 con 1 bye). El clásico: encestar la pelota en los vasos del rival. El que pierde queda eliminado.",
+      scoring: "Por posición final. Campeón=10, finalista=8, 3er puesto=6, 4º=5, resto=4." },
+    { id: "flipcup", name: "Flip Cup", type: "team", hasHomeRuns: false, teamSizes: [4, 3], day: "night", slot: "Sábado · Noche", icon: "🥤",
+      tagline: "Relevo por equipos",
+      rules: "Dos equipos enfrentados a los lados de una mesa, cada jugador con un vaso. A la señal, el primero bebe, deja el vaso en el borde y lo voltea de un toque hasta dejarlo boca abajo; solo entonces bebe el siguiente. Gana el equipo que completa el relevo antes. Se juega al mejor de N mangas.",
+      scoring: "Equipo ganador: +8 pts a cada jugador. Perdedor: 0." },
+  ],
+  SCHEDULE: [
+    { day: "Viernes", subtitle: "Ceremonia de Apertura", icon: "🔥", items: [
+      { time: "Tarde", title: "Llegada e instalación", desc: "Nos acomodamos en la casa y preparamos el terreno de juego." },
+      { time: "Cena", title: "Bienvenida A20", desc: "Presentación del plan del fin de semana y de esta web." },
+      { time: "Noche", title: "Sorteo de países", desc: "Cada atleta recibe su país. ¡Representa con orgullo!" },
+      { time: "Noche", title: "Sorteo de emparejamientos", desc: "Se sortean los cuadros de todas las pruebas del sábado." },
+      { time: "Noche", title: "Juramento olímpico + antorcha", desc: "Chupito de honor y encendido de la antorcha A20. Sin competición: hoy toca ambiente." },
+    ] },
+    { day: "Sábado", subtitle: "Las Olimpiadas", icon: "🏅", items: [
+      { time: "Mañana", title: "⛳ Fútbol-Golf", desc: "Recorrido de hoyos por el jardín." },
+      { time: "Mañana", title: "⚾ Béisbol", desc: "2 equipos, 3 vs 3 + suplente." },
+      { time: "Comida", title: "Avituallamiento", desc: "Recargar pilas para la tarde." },
+      { time: "Tarde", title: "🏓 Ping Pong", desc: "Eliminatoria individual, más tranquilo tras comer." },
+      { time: "Tarde", title: "🎾 Pádel", desc: "Eliminatoria por parejas." },
+      { time: "Noche", title: "🍺 Beer Pong", desc: "Eliminatoria individual." },
+      { time: "Noche", title: "🥤 Flip Cup", desc: "Relevo por equipos." },
+      { time: "Cierre", title: "🏆 Entrega de premios", desc: "Medallero, pódium y fotos. Farolillo rojo para el último." },
+    ] },
+    { day: "Domingo", subtitle: "Clausura", icon: "🌅", items: [
+      { time: "Mañana", title: "Desayuno de campeones", desc: "Resaca deportiva y anécdotas del sábado." },
+      { time: "Mediodía", title: "Recogida y vuelta", desc: "Hasta la próxima edición de A20." },
+    ] },
+  ],
+};
+
+// =============================================================
+//  MOTOR DEL TORNEO (lógica pura)
+// =============================================================
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+function pointsForPlace(place, byPlace) {
+  if (!place || place < 1) return 0;
+  return byPlace[Math.min(place, byPlace.length) - 1];
+}
+function rankWithTies(entries, order) {
+  var sorted = entries.slice().sort(function (a, b) { return order === "asc" ? a.value - b.value : b.value - a.value; });
+  var places = {}, place = 0, seen = 0, prev = null;
+  for (var i = 0; i < sorted.length; i++) {
+    var e = sorted[i]; seen++;
+    if (prev === null || e.value !== prev) place = seen;
+    places[e.id] = place; prev = e.value;
+  }
+  return places;
+}
+function initBracket(ids) { return { slots: shuffle(ids).slice(0, 7), results: {} }; }
+function resolveBracket(b) {
+  if (!b || !b.slots || b.slots.length < 7) return null;
+  var s = b.slots, r = b.results || {};
+  var loser = function (w, x, y) { return w === x ? y : x; };
+  var qf1 = { key: "qf1", a: s[0], b: s[1], winner: r.qf1 || null };
+  var qf2 = { key: "qf2", a: s[2], b: s[3], winner: r.qf2 || null };
+  var qf3 = { key: "qf3", a: s[4], b: s[5], winner: r.qf3 || null };
+  var qf4 = { key: "qf4", a: s[6], b: null, winner: s[6] };
+  var sf1 = { key: "sf1", a: qf1.winner, b: qf2.winner, winner: r.sf1 || null };
+  var sf2 = { key: "sf2", a: qf3.winner, b: qf4.winner, winner: r.sf2 || null };
+  var final = { key: "final", a: sf1.winner, b: sf2.winner, winner: r.final || null };
+  var third = { key: "third", a: sf1.winner ? loser(sf1.winner, sf1.a, sf1.b) : null, b: sf2.winner ? loser(sf2.winner, sf2.a, sf2.b) : null, winner: r.third || null };
+  return { qf1: qf1, qf2: qf2, qf3: qf3, qf4: qf4, sf1: sf1, sf2: sf2, final: final, third: third, loser: loser };
+}
+function bracketPlacements(b) {
+  var R = resolveBracket(b); if (!R) return {};
+  var places = {}, loser = R.loser;
+  [R.qf1, R.qf2, R.qf3].forEach(function (qf) { if (qf.winner) places[loser(qf.winner, qf.a, qf.b)] = 5; });
+  if (R.third.winner) { places[R.third.winner] = 3; places[loser(R.third.winner, R.third.a, R.third.b)] = 4; }
+  if (R.final.winner) { places[R.final.winner] = 1; places[loser(R.final.winner, R.final.a, R.final.b)] = 2; }
+  return places;
+}
+function initPadel(ids) {
+  var s = shuffle(ids).slice(0, 7);
+  return { pairs: { p0: [s[0], s[1]], p1: [s[2], s[3]], p2: [s[4], s[5]] }, solo: s[6], picked: null, dropped: null, results: {} };
+}
+function padelPairs(p) { var pairs = Object.assign({}, p.pairs); if (p.picked) pairs.pD = [p.solo, p.picked]; return pairs; }
+function resolvePadel(p) {
+  if (!p || !p.pairs) return null;
+  var pairs = padelPairs(p), r = p.results || {};
+  var otherOf = function (a, b, w) { return w === a ? b : a; };
+  var sf1 = { key: "sf1", a: "p0", b: "p1", winner: r.sf1 || null };
+  var sf2 = { key: "sf2", a: "p2", b: p.picked ? "pD" : null, winner: r.sf2 || null };
+  var sf2Loser = (sf2.winner && sf2.a && sf2.b) ? otherOf(sf2.a, sf2.b, sf2.winner) : null;
+  var final = { key: "final", a: sf1.winner, b: sf2.winner, winner: r.final || null };
+  var finalLoser = final.winner ? otherOf(final.a, final.b, final.winner) : null;
+  return { pairs: pairs, sf1: sf1, sf2: sf2, sf2Loser: sf2Loser, final: final, finalLoser: finalLoser };
+}
+function padelPlacements(p) {
+  var R = resolvePadel(p); if (!R) return {};
+  var places = {};
+  var assign = function (key, place) { var m = R.pairs[key]; if (m) m.forEach(function (id) { if (id != null) places[id] = place; }); };
+  if (p.dropped != null) places[p.dropped] = 4;
+  if (R.sf2Loser) assign(R.sf2Loser, 3);
+  if (R.final.winner) { assign(R.final.winner, 1); if (R.finalLoser) assign(R.finalLoser, 2); }
+  return places;
+}
+function scorePlacements(st, order) {
+  var scores = (st && st.scores) || {};
+  var entries = Object.keys(scores).filter(function (id) { var v = scores[id]; return v != null && v !== "" && !isNaN(Number(v)); })
+    .map(function (id) { return { id: id, value: Number(scores[id]) }; });
+  if (!entries.length) return {};
+  return rankWithTies(entries, order || "asc");
+}
+function initTeams(ids, sizes) {
+  sizes = sizes || [4, 3];
+  var s = shuffle(ids);
+  return { teams: [ { key: "A", name: "Equipo A", members: s.slice(0, sizes[0]) }, { key: "B", name: "Equipo B", members: s.slice(sizes[0], sizes[0] + sizes[1]) } ], winner: null, homeRuns: {} };
+}
+function teamPoints(st, event, cfg) {
+  var pts = {}; if (!st || !st.teams) return pts;
+  var hr = st.homeRuns || {};
+  st.teams.forEach(function (team) {
+    team.members.forEach(function (id) {
+      var p = 0;
+      if (st.winner) p += team.key === st.winner ? cfg.teamWin : cfg.teamLose;
+      if (event.hasHomeRuns && hr[id]) p += Number(hr[id]) * cfg.homeRun;
+      pts[id] = p;
+    });
+  });
+  return pts;
+}
+function mapPlacesToPoints(places, byPlace) {
+  var pts = {}; Object.keys(places).forEach(function (id) { pts[id] = pointsForPlace(places[id], byPlace); }); return pts;
+}
+function eventPoints(event, st, cfg) {
+  if (!st) return {};
+  if (event.type === "bracket") return mapPlacesToPoints(bracketPlacements(st), cfg.byPlace);
+  if (event.type === "padel") return mapPlacesToPoints(padelPlacements(st), cfg.byPlace);
+  if (event.type === "score") return mapPlacesToPoints(scorePlacements(st, event.order), cfg.byPlace);
+  if (event.type === "team") return teamPoints(st, event, cfg);
+  return {};
+}
+function computeStandings(state, events, athletes, cfg) {
+  var perEvent = {}; athletes.forEach(function (a) { perEvent[a.id] = {}; });
+  events.forEach(function (ev) {
+    var pts = eventPoints(ev, state.events && state.events[ev.id], cfg);
+    Object.keys(pts).forEach(function (id) { if (!perEvent[id]) perEvent[id] = {}; perEvent[id][ev.id] = pts[id]; });
+  });
+  var rows = athletes.map(function (a) {
+    var pe = perEvent[a.id] || {};
+    var total = Object.keys(pe).reduce(function (s, k) { return s + (pe[k] || 0); }, 0);
+    return { id: a.id, name: a.name, dorsal: a.dorsal, total: total, perEvent: pe };
+  });
+  rows.sort(function (a, b) { return b.total - a.total; });
+  var rank = 0, seen = 0, prev = null;
+  rows.forEach(function (row) { seen++; if (prev === null || row.total !== prev) rank = seen; row.rank = rank; prev = row.total; });
+  var maxRank = rows.length ? rows[rows.length - 1].rank : 0;
+  rows.forEach(function (row) {
+    row.medal = row.rank === 1 ? "gold" : row.rank === 2 ? "silver" : row.rank === 3 ? "bronze" : null;
+    row.isLast = row.rank === maxRank && maxRank > 1;
+  });
+  return rows;
+}
+
+// =============================================================
+//  STORE (Firestore compat, con fallback a localStorage)
+// =============================================================
+var Store = (function () {
+  var COL = "a20", DOCID = "state", LSKEY = "a20-state-v1";
+  var backend = null, cache = null, listeners = [], ref = null, bc = null;
+
+  function isConfigured() { var k = CONFIG.FIREBASE.apiKey || ""; return !!k && k.indexOf("PEGA_AQUI") !== 0; }
+  function fbAvailable() { return typeof firebase !== "undefined" && !!firebase.initializeApp; }
+  function notify() { listeners.forEach(function (cb) { cb(cache); }); }
+  function subscribe(cb) { listeners.push(cb); if (cache) cb(cache); return function () { listeners = listeners.filter(function (f) { return f !== cb; }); }; }
+  function getState() { return cache; }
+  function setNested(obj, path, value) {
+    var keys = path.split("."), o = obj;
+    for (var i = 0; i < keys.length - 1; i++) { if (o[keys[i]] == null || typeof o[keys[i]] !== "object") o[keys[i]] = {}; o = o[keys[i]]; }
+    o[keys[keys.length - 1]] = value;
+  }
+  function initLocal(def) {
+    var raw = null; try { raw = localStorage.getItem(LSKEY); } catch (e) {}
+    cache = raw ? JSON.parse(raw) : def;
+    try { if (!raw) localStorage.setItem(LSKEY, JSON.stringify(cache)); } catch (e) {}
+    try { bc = new BroadcastChannel("a20"); bc.onmessage = function (e) { cache = e.data; notify(); }; } catch (e) { bc = null; }
+    try { window.addEventListener("storage", function (e) { if (e.key === LSKEY && e.newValue) { cache = JSON.parse(e.newValue); notify(); } }); } catch (e) {}
+    notify();
+  }
+  function localPersist() { try { localStorage.setItem(LSKEY, JSON.stringify(cache)); } catch (e) {} if (bc) { try { bc.postMessage(cache); } catch (e) {} } }
+
+  function init(def) {
+    return new Promise(function (resolve) {
+      if (isConfigured() && fbAvailable()) {
+        try {
+          firebase.initializeApp(CONFIG.FIREBASE);
+          var db = firebase.firestore();
+          ref = db.collection(COL).doc(DOCID);
+          backend = "firestore";
+          ref.get().then(function (snap) { if (!snap.exists) return ref.set(def); })
+            .catch(function () {})
+            .then(function () {
+              ref.onSnapshot(function (s) { if (s.exists) { cache = s.data(); notify(); } });
+              resolve(backend);
+            });
+          return;
+        } catch (e) { console.error("Firebase falló, modo local:", e); }
+      }
+      backend = "local"; initLocal(def); resolve(backend);
+    });
+  }
+  function set(entries) {
+    if (!cache) cache = {};
+    Object.keys(entries).forEach(function (p) { setNested(cache, p, entries[p]); });
+    notify();
+    if (backend === "firestore" && ref) { return ref.update(entries).catch(function (e) { console.error(e); }); }
+    localPersist(); return Promise.resolve();
+  }
+  function resetAll(def) {
+    cache = JSON.parse(JSON.stringify(def)); notify();
+    if (backend === "firestore" && ref) { return ref.set(cache); }
+    localPersist(); return Promise.resolve();
+  }
+  return { init: init, set: set, resetAll: resetAll, subscribe: subscribe, getState: getState, backendName: function () { return backend; } };
+})();
+
+// =============================================================
+//  UI
+// =============================================================
+var ATHLETES = CONFIG.ATHLETES, EVENTS = CONFIG.EVENTS, COUNTRIES = CONFIG.COUNTRIES, POINTS = CONFIG.POINTS, SCHEDULE = CONFIG.SCHEDULE, ADMIN_PASSWORD = CONFIG.ADMIN_PASSWORD;
+var athleteById = {}, eventById = {};
+ATHLETES.forEach(function (a) { athleteById[a.id] = a; });
+EVENTS.forEach(function (e) { eventById[e.id] = e; });
+function $(sel, root) { return (root || document).querySelector(sel); }
+
+function isAdmin() { try { return sessionStorage.getItem("a20-admin") === "1"; } catch (e) { return false; } }
+function toggleAdmin() {
+  if (isAdmin()) { try { sessionStorage.removeItem("a20-admin"); } catch (e) {} render(Store.getState()); return; }
+  var pass = window.prompt("Contraseña de administrador:");
+  if (pass == null) return;
+  if (pass === ADMIN_PASSWORD) { try { sessionStorage.setItem("a20-admin", "1"); } catch (e) {} render(Store.getState()); }
+  else window.alert("Contraseña incorrecta.");
+}
+function countryOf(state, id) { return (state.countries && state.countries[id]) || null; }
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+function nameChip(state, id) {
+  if (!id) return '<span class="chip empty">—</span>';
+  var a = athleteById[id], c = countryOf(state, id), flag = c ? c.flag + " " : "";
+  return '<span class="chip">' + flag + (a ? a.name : id) + "</span>";
+}
+
+function renderStatic() {
+  $("#nav-links").innerHTML =
+    '<a href="#atletas">Atletas</a><a href="#programa">Programa</a><a href="#pruebas">Pruebas</a><a href="#competicion">Competición</a><a href="#ranking">Ranking</a>';
+  $("#programa-grid").innerHTML = SCHEDULE.map(function (day, di) {
+    return '<div class="day-card reveal" style="--d:' + (di * 0.08) + 's">' +
+      '<div class="day-head"><span class="day-ic">' + day.icon + '</span><div><h3>' + day.day + '</h3><p>' + day.subtitle + '</p></div></div>' +
+      '<ul class="timeline">' + day.items.map(function (it) {
+        return '<li><span class="t-time">' + it.time + '</span><div class="t-body"><strong>' + it.title + '</strong><span>' + it.desc + '</span></div></li>';
+      }).join("") + '</ul></div>';
+  }).join("");
+  $("#pruebas-grid").innerHTML = EVENTS.map(function (ev, i) {
+    return '<article class="event-card reveal" style="--d:' + (i * 0.06) + 's">' +
+      '<div class="ev-top"><span class="ev-ic">' + ev.icon + '</span><span class="tag ' + ev.day + '">' + (ev.day === "day" ? "☀️ Día" : "🌙 Noche") + '</span></div>' +
+      '<h3>' + ev.name + '</h3><p class="ev-tag">' + ev.tagline + '</p>' +
+      '<p class="ev-rules">' + esc(ev.rules) + '</p>' +
+      '<p class="ev-scoring"><strong>Puntos:</strong> ' + esc(ev.scoring) + '</p></article>';
+  }).join("");
+}
+
+function render(state) {
+  if (!state) return;
+  try { document.body.classList.toggle("is-admin", isAdmin()); } catch (e) {}
+  $("#admin-btn").textContent = isAdmin() ? "🔓 Admin ON" : "🔒 Admin";
+  renderAtletas(state);
+  renderCompeticion(state);
+  renderRanking(state);
+  refreshReveal();
+}
+
+function renderAtletas(state) {
+  var admin = isAdmin();
+  $("#atletas-grid").innerHTML = ATHLETES.map(function (a, i) {
+    var c = countryOf(state, a.id);
+    var opts = COUNTRIES.map(function (co) { return '<option value="' + co.code + '" ' + (c && c.code === co.code ? "selected" : "") + '>' + co.flag + " " + co.name + "</option>"; }).join("");
+    return '<div class="athlete-card reveal" style="--d:' + (i * 0.05) + 's">' +
+      '<div class="dorsal">' + a.dorsal + '</div>' +
+      '<div class="flag-big">' + (c ? c.flag : "🏳️") + '</div>' +
+      '<h3>' + a.name + '</h3><p class="country">' + (c ? c.name : "Sin país") + '</p>' +
+      (admin ? '<select class="country-select" data-country-for="' + a.id + '"><option value="">— país —</option>' + opts + '</select>' : "") +
+      '</div>';
+  }).join("");
+  $("#atletas-admin").innerHTML = admin ? '<button class="btn gold" data-action="draw-countries">🎲 Sortear países al azar</button>' : "";
+}
+
+function renderCompeticion(state) {
+  var admin = isAdmin();
+  $("#competicion-grid").innerHTML = EVENTS.map(function (ev) {
+    var st = state.events && state.events[ev.id];
+    var body = "";
+    if (ev.type === "bracket") body = renderBracket(state, ev, st);
+    else if (ev.type === "padel") body = renderPadel(state, ev, st);
+    else if (ev.type === "score") body = renderScore(state, ev, st);
+    else if (ev.type === "team") body = renderTeam(state, ev, st);
+    var drawn = st && (st.slots || st.pairs || st.teams || st.scores);
+    var adminBtns = admin ? ('<div class="comp-admin">' +
+      (!drawn || ev.type === "score"
+        ? '<button class="btn small gold" data-action="draw-event" data-ev="' + ev.id + '">🎲 Sortear</button>'
+        : '<button class="btn small ghost" data-action="draw-event" data-ev="' + ev.id + '">🔁 Re-sortear</button>') +
+      '<button class="btn small ghost" data-action="reset-event" data-ev="' + ev.id + '">🧹 Reiniciar</button></div>') : "";
+    return '<details class="comp-block" ' + (drawn ? "open" : "") + '>' +
+      '<summary><span class="ev-ic">' + ev.icon + '</span> ' + ev.name + ' <span class="tag ' + ev.day + '">' + ev.slot + '</span></summary>' +
+      '<div class="comp-inner">' + adminBtns + body + '</div></details>';
+  }).join("");
+}
+
+function matchCell(state, ev, m, opts) {
+  opts = opts || {};
+  var canPlay = m.a && m.b;
+  function btn(id) {
+    if (!id) return '<button class="slot bye" disabled>—</button>';
+    var won = m.winner === id, dis = canPlay ? "" : "disabled";
+    return '<button class="slot ' + (won ? "won" : "") + '" ' + dis + ' data-action="set-winner" data-ev="' + ev.id + '" data-match="' + m.key + '" data-win="' + id + '">' + nameChip(state, id) + '</button>';
+  }
+  return '<div class="match ' + (opts.cls || "") + '"><span class="m-label">' + (opts.label || "") + '</span>' + btn(m.a) + '<span class="vs">vs</span>' + btn(m.b) + '</div>';
+}
+
+function renderBracket(state, ev, st) {
+  if (!st || !st.slots) return '<p class="muted">Pendiente de sorteo del cuadro.</p>';
+  var R = resolveBracket(st);
+  if (!R) return '<p class="muted">Cuadro incompleto.</p>';
+  var champ = R.final.winner ? '<div class="champ-banner">🏆 Campeón: ' + nameChip(state, R.final.winner) + '</div>' : "";
+  return champ +
+    '<div class="bracket">' +
+      '<div class="round"><h4>Cuartos</h4>' + matchCell(state, ev, R.qf1) + matchCell(state, ev, R.qf2) + matchCell(state, ev, R.qf3) +
+        '<div class="match"><span class="m-label">bye</span>' + nameChip(state, R.qf4.a) + '<span class="vs">pasa</span></div></div>' +
+      '<div class="round"><h4>Semis</h4>' + matchCell(state, ev, R.sf1) + matchCell(state, ev, R.sf2) + '</div>' +
+      '<div class="round"><h4>Final · 3er puesto</h4>' + matchCell(state, ev, R.final, { cls: "final" }) + matchCell(state, ev, R.third, { label: "3º/4º" }) + '</div>' +
+    '</div>';
+}
+
+function renderPadel(state, ev, st) {
+  if (!st || !st.pairs) return '<p class="muted">Pendiente de sorteo de parejas.</p>';
+  var R = resolvePadel(st);
+  function pairChip(key) { var mem = R.pairs[key]; if (!mem) return '<span class="chip empty">—</span>'; return '<span class="pairchip">' + nameChip(state, mem[0]) + nameChip(state, mem[1]) + '</span>'; }
+  function pairBtn(matchKey, key, winner) {
+    if (!key || !R.pairs[key]) return '<button class="slot bye" disabled>—</button>';
+    return '<button class="slot ' + (winner === key ? "won" : "") + '" data-action="set-winner" data-ev="' + ev.id + '" data-match="' + matchKey + '" data-win="' + key + '">' + pairChip(key) + '</button>';
+  }
+  var pickBox = "";
+  if (R.sf1.winner && !st.picked) {
+    var loserKey = R.sf1.winner === "p0" ? "p1" : "p0";
+    var mem = st.pairs[loserKey] || [];
+    pickBox = '<div class="pick-box"><p>🎾 <strong>' + nameChip(state, st.solo) + '</strong> (jugador solo) elige compañero de la pareja eliminada:</p>' +
+      mem.map(function (id) { return '<button class="btn small gold" data-action="padel-pick" data-ev="' + ev.id + '" data-pick="' + id + '">' + nameChip(state, id) + '</button>'; }).join("") + '</div>';
+  }
+  var champ = R.final.winner ? '<div class="champ-banner">🏆 Campeones: ' + pairChip(R.final.winner) + '</div>' : "";
+  var solo = '<div class="solo-note">🎾 Jugador solo: ' + nameChip(state, st.solo) + (st.picked ? (' · compañero: ' + nameChip(state, st.picked) + ' (descartado: ' + nameChip(state, st.dropped) + ')') : "") + '</div>';
+  return champ + solo +
+    '<div class="bracket padel">' +
+      '<div class="round"><h4>Semifinal 1</h4><div class="match">' + pairBtn("sf1", "p0", R.sf1.winner) + '<span class="vs">vs</span>' + pairBtn("sf1", "p1", R.sf1.winner) + '</div>' + pickBox + '</div>' +
+      '<div class="round"><h4>Semifinal 2</h4><div class="match">' + pairBtn("sf2", "p2", R.sf2.winner) + '<span class="vs">vs</span>' + pairBtn("sf2", st.picked ? "pD" : null, R.sf2.winner) + '</div></div>' +
+      '<div class="round"><h4>Final</h4><div class="match final">' + pairBtn("final", R.final.a, R.final.winner) + '<span class="vs">vs</span>' + pairBtn("final", R.final.b, R.final.winner) + '</div></div>' +
+    '</div>';
+}
+
+function renderScore(state, ev, st) {
+  var scores = (st && st.scores) || {};
+  var places = scorePlacements(st || {}, ev.order);
+  var rows = ATHLETES.map(function (a) {
+    var val = scores[a.id] != null ? scores[a.id] : "";
+    var pl = places[a.id];
+    var pts = pl ? pointsForPlace(pl, POINTS.byPlace) : "";
+    return '<tr><td>' + nameChip(state, a.id) + '</td>' +
+      '<td><input type="number" min="0" class="score-input" data-ev="' + ev.id + '" data-athlete="' + a.id + '" value="' + val + '" placeholder="golpes"></td>' +
+      '<td class="ctr">' + (pl ? pl + "º" : "—") + '</td>' +
+      '<td class="ctr pts">' + (pts !== "" ? pts : "—") + '</td></tr>';
+  }).join("");
+  return '<table class="score-table"><thead><tr><th>Atleta</th><th>Golpes</th><th>Pos.</th><th>Pts</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+    '<p class="muted small">Menos golpes = mejor. Cualquiera puede rellenar los resultados.</p>';
+}
+
+function renderTeam(state, ev, st) {
+  if (!st || !st.teams) return '<p class="muted">Pendiente de sorteo de equipos.</p>';
+  var pts = teamPoints(st, ev, POINTS);
+  var teamHtml = st.teams.map(function (t) {
+    return '<div class="team ' + (st.winner === t.key ? "winner" : "") + '">' +
+      '<div class="team-head"><h4>' + t.name + ' ' + (st.winner === t.key ? "🏆" : "") + '</h4>' +
+      '<button class="btn small ' + (st.winner === t.key ? "gold" : "ghost") + '" data-action="team-winner" data-ev="' + ev.id + '" data-team="' + t.key + '">Gana ' + t.name + '</button></div>' +
+      '<ul class="team-list">' + t.members.map(function (id) {
+        return '<li>' + nameChip(state, id) +
+          (ev.hasHomeRuns ? ('<span class="hr"><button class="hr-btn" data-action="hr-dec" data-ev="' + ev.id + '" data-athlete="' + id + '">−</button><span class="hr-n">' + ((st.homeRuns && st.homeRuns[id]) || 0) + ' HR</span><button class="hr-btn" data-action="hr-inc" data-ev="' + ev.id + '" data-athlete="' + id + '">+</button></span>') : "") +
+          '<span class="pts">' + (pts[id] != null ? pts[id] + " pts" : "") + '</span></li>';
+      }).join("") + '</ul></div>';
+  }).join("");
+  return '<div class="teams">' + teamHtml + '</div>' +
+    '<p class="muted small">Marca el equipo ganador' + (ev.hasHomeRuns ? " y suma los home runs individuales" : "") + '. Abierto a todos.</p>';
+}
+
+function renderRanking(state) {
+  var rows = computeStandings(state, EVENTS, ATHLETES, POINTS);
+  var top3 = rows.slice(0, 3);
+  var order = [1, 0, 2];
+  $("#podium").innerHTML = order.map(function (idx) {
+    var r = top3[idx]; if (!r) return "";
+    var c = countryOf(state, r.id);
+    var cls = idx === 0 ? "silver" : idx === 1 ? "gold" : "bronze";
+    var medal = idx === 0 ? "🥈" : idx === 1 ? "🥇" : "🥉";
+    var h = 60 + (idx === 1 ? 60 : idx === 0 ? 30 : 10);
+    return '<div class="pod ' + cls + '" style="--h:' + h + 'px"><div class="pod-name">' + (c ? c.flag + " " : "") + r.name + '</div><div class="pod-medal">' + medal + '</div><div class="pod-bar"><span>' + r.total + '</span></div></div>';
+  }).join("");
+  var evHead = EVENTS.map(function (e) { return '<th title="' + e.name + '">' + e.icon + '</th>'; }).join("");
+  var body = rows.map(function (r) {
+    var c = countryOf(state, r.id);
+    var cells = EVENTS.map(function (e) { return '<td class="ctr">' + (r.perEvent[e.id] != null ? r.perEvent[e.id] : "·") + '</td>'; }).join("");
+    var medal = r.medal === "gold" ? "🥇" : r.medal === "silver" ? "🥈" : r.medal === "bronze" ? "🥉" : (r.isLast ? "🔴" : "");
+    return '<tr class="' + (r.medal || "") + ' ' + (r.isLast ? "last" : "") + '">' +
+      '<td class="ctr rank">' + r.rank + '</td>' +
+      '<td class="who">' + (c ? c.flag + " " : "") + '<strong>' + r.name + '</strong> ' + medal + '</td>' +
+      cells + '<td class="ctr total">' + r.total + '</td></tr>';
+  }).join("");
+  $("#ranking-table").innerHTML = '<thead><tr><th>#</th><th>Atleta</th>' + evHead + '<th>Total</th></tr></thead><tbody>' + body + '</tbody>';
+}
+
+// ---------- interacciones ----------
+function buildInitialState() { return { phase: "setup", countries: {}, events: {}, createdAt: Date.now() }; }
+
+function wireEvents() {
+  $("#admin-btn").addEventListener("click", toggleAdmin);
+  $("#reset-all-btn").addEventListener("click", function () {
+    if (!isAdmin()) { window.alert("Solo el admin puede reiniciar todo."); return; }
+    if (window.confirm("¿Reiniciar TODO el torneo (países, sorteos y resultados)?")) Store.resetAll(buildInitialState());
+  });
+  document.addEventListener("click", onClick);
+  document.addEventListener("change", onChange);
+}
+
+function onClick(e) {
+  var el = e.target.closest ? e.target.closest("[data-action]") : null;
+  if (!el) return;
+  var a = el.dataset.action;
+  var state = Store.getState();
+  var ev = el.dataset.ev ? eventById[el.dataset.ev] : null;
+  var st = ev && state.events ? state.events[ev.id] : null;
+
+  var adminOnly = ["draw-event", "reset-event", "draw-countries"];
+  if (adminOnly.indexOf(a) !== -1 && !isAdmin()) { window.alert("Solo el admin puede hacer sorteos."); return; }
+
+  if (a === "draw-countries") {
+    var shuffled = shuffle(COUNTRIES), assign = {};
+    ATHLETES.forEach(function (at, i) { var c = shuffled[i]; assign[at.id] = { code: c.code, name: c.name, flag: c.flag }; });
+    Store.set({ countries: assign });
+  }
+  if (a === "draw-event") {
+    var fresh, ids = ATHLETES.map(function (x) { return x.id; });
+    if (ev.type === "bracket") fresh = initBracket(ids);
+    else if (ev.type === "padel") fresh = initPadel(ids);
+    else if (ev.type === "team") fresh = initTeams(ids, ev.teamSizes);
+    else if (ev.type === "score") fresh = { scores: {} };
+    var o = {}; o["events." + ev.id] = fresh; Store.set(o);
+  }
+  if (a === "reset-event") { var r = {}; r["events." + ev.id] = null; Store.set(r); }
+  if (a === "set-winner") { setWinner(ev, st, el.dataset.match, el.dataset.win); }
+  if (a === "padel-pick") {
+    var picked = el.dataset.pick;
+    var loserKey = st.results.sf1 === "p0" ? "p1" : "p0";
+    var mem = st.pairs[loserKey] || [];
+    var dropped = mem.filter(function (x) { return x !== picked; })[0];
+    var u = {};
+    u["events." + ev.id + ".picked"] = picked;
+    u["events." + ev.id + ".dropped"] = dropped != null ? dropped : null;
+    u["events." + ev.id + ".results.sf2"] = null;
+    u["events." + ev.id + ".results.final"] = null;
+    Store.set(u);
+  }
+  if (a === "team-winner") { var t = {}; t["events." + ev.id + ".winner"] = el.dataset.team; Store.set(t); }
+  if (a === "hr-inc" || a === "hr-dec") {
+    var id = el.dataset.athlete;
+    var cur = (st.homeRuns && st.homeRuns[id]) || 0;
+    var next = Math.max(0, cur + (a === "hr-inc" ? 1 : -1));
+    var h = {}; h["events." + ev.id + ".homeRuns." + id] = next; Store.set(h);
+  }
+}
+
+function setWinner(ev, st, matchKey, win) {
+  var base = "events." + ev.id + ".results.";
+  var upd = {}; upd[base + matchKey] = win;
+  var clearDown = { qf1: ["sf1", "final", "third"], qf2: ["sf1", "final", "third"], qf3: ["sf2", "final", "third"], sf1: ["final", "third"], sf2: ["final", "third"] };
+  if (ev.type === "padel") {
+    if (matchKey === "sf1") {
+      upd["events." + ev.id + ".picked"] = null;
+      upd["events." + ev.id + ".dropped"] = null;
+      upd[base + "sf2"] = null; upd[base + "final"] = null;
+    } else if (matchKey === "sf2") { upd[base + "final"] = null; }
+  } else {
+    (clearDown[matchKey] || []).forEach(function (k) { upd[base + k] = null; });
+  }
+  Store.set(upd);
+}
+
+function onChange(e) {
+  if (e.target.classList && e.target.classList.contains("country-select")) {
+    if (!isAdmin()) return;
+    var id = e.target.dataset.countryFor, code = e.target.value;
+    var c = COUNTRIES.filter(function (x) { return x.code === code; })[0] || null;
+    var u = {}; u["countries." + id] = c ? { code: c.code, name: c.name, flag: c.flag } : null; Store.set(u);
+  }
+  if (e.target.classList && e.target.classList.contains("score-input")) {
+    var evId = e.target.dataset.ev, aid = e.target.dataset.athlete;
+    var v = e.target.value === "" ? null : Number(e.target.value);
+    var s = {}; s["events." + evId + ".scores." + aid] = v; Store.set(s);
+  }
+}
+
+// ---------- reveal on scroll ----------
+var io = null;
+function refreshReveal() {
+  if (typeof IntersectionObserver === "undefined") { document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); }); return; }
+  if (!io) io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal:not(.in)").forEach(function (el) { io.observe(el); });
+}
+
+// =============================================================
+//  ARRANQUE
+// =============================================================
+renderStatic();
+wireEvents();
+Store.init(buildInitialState()).then(function (backend) {
+  var ind = document.getElementById("backend-indicator");
+  if (ind) {
+    if (backend === "firestore") { ind.innerHTML = '<span class="dot live"></span> En directo'; ind.title = "Conectado a Firebase: todos veis lo mismo en tiempo real."; }
+    else { ind.innerHTML = '<span class="dot local"></span> Modo local'; ind.title = "Sin Firebase configurado: los datos son solo de este navegador. Ver README."; }
+  }
+  Store.subscribe(render);
+  if (Store.getState()) render(Store.getState());
+});
+
+})();
+</script>
 </body>
 </html>
