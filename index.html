@@ -111,7 +111,6 @@ a { color: inherit; text-decoration: none; }
 .athlete-card .dorsal { font-family: "Oswald"; font-size: 1.4rem; color: var(--gold-3); opacity: .7; min-width: 28px; text-align: center; }
 .flag-big { font-size: 2.2rem; line-height: 1; min-width: 2.4rem; text-align: center; }
 .athlete-info { display: flex; flex-direction: column; gap: 1px; flex: 1; }
-.turn-badge { font-size: .7rem; font-weight: 700; background: linear-gradient(135deg, var(--gold-2), var(--gold)); color: #241d05; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .athlete-card h3 { margin: 0; font-size: 1.15rem; }
 .athlete-card .country { color: var(--muted); font-size: .85rem; margin: 0; }
 .country-select { margin-left: auto; padding: 7px 10px; border-radius: 10px; background: #14141c; color: var(--text); border: 1px solid var(--line); font-size: .85rem; max-width: 180px; }
@@ -700,12 +699,11 @@ function renderAtletas(state) {
   $("#atletas-grid").innerHTML = orderedAthletes.map(function (a, i) {
     var c = countryOf(state, a.id);
     var opts = COUNTRIES.map(function (co) { return '<option value="' + co.code + '" ' + (c && c.code === co.code ? "selected" : "") + '>' + co.flag + " " + co.name + "</option>"; }).join("");
-    var turnLabel = order ? '<span class="turn-badge">' + (i + 1) + 'º elige</span>' : "";
+    var displayNum = order ? (i + 1) : a.dorsal;
     return '<div class="athlete-card reveal" style="--d:' + (i * 0.04) + 's">' +
-      '<span class="dorsal">' + a.dorsal + '</span>' +
+      '<span class="dorsal">' + displayNum + '</span>' +
       '<span class="flag-big">' + (c ? c.flag : "🏳️") + '</span>' +
       '<div class="athlete-info"><h3>' + a.name + '</h3><p class="country">' + (c ? c.name : "Sin país asignado") + '</p></div>' +
-      turnLabel +
       (admin ? '<select class="country-select" data-country-for="' + a.id + '"><option value="">— país —</option>' + opts + '</select>' : "") +
       '</div>';
   }).join("");
