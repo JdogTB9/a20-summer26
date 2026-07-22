@@ -82,6 +82,7 @@ a { color: inherit; text-decoration: none; }
 .hero-bg::after { content: ""; position: absolute; inset: -50%; background: conic-gradient(from 0deg, transparent, rgba(212,175,55,.06), transparent 30%); animation: spin 26s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .hero-inner { position: relative; z-index: 2; animation: rise 1s var(--ease) both .2s; display: flex; flex-direction: column; align-items: center; }
+.hero-poster { width: min(90vw, 450px); max-height: 72vh; object-fit: contain; -webkit-mask-image: radial-gradient(ellipse 88% 94% at 50% 46%, #000 68%, rgba(0,0,0,.6) 84%, transparent 100%); mask-image: radial-gradient(ellipse 88% 94% at 50% 46%, #000 68%, rgba(0,0,0,.6) 84%, transparent 100%); filter: drop-shadow(0 14px 60px rgba(212,175,55,.22)); }
 .hero .rings { z-index: 2; position: relative; margin-bottom: 2px; }
 @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
 .title { margin: 6px 0 0; line-height: .9; }
@@ -266,13 +267,7 @@ a { color: inherit; text-decoration: none; }
 <section id="top" class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
-    <div class="rings" aria-hidden="true">
-      <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
-      <span class="ring r-yellow"></span><span class="ring r-green"></span>
-    </div>
-    <div class="torch" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
-    <h1 class="title"><span class="a20">A20</span></h1>
-    <p class="subtitle">SUMMER&nbsp;26</p>
+    <img class="hero-poster" src="a20-poster.png" alt="A20 · Summer 26 — Olympic Games Casa Aveinte" />
     <p class="tagline">Olimpiadas de Casa Aveinte · 7 atletas · 6 pruebas · 1 leyenda</p>
     <div class="hero-cta">
       <a href="#programa" class="btn gold">Ver programa</a>
