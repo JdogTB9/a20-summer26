@@ -973,7 +973,7 @@ function refreshReveal() {
 //  ARRANQUE
 // =============================================================
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-window.scrollTo(0, 0);
+if (location.hash) history.replaceState(null, "", location.pathname);
 renderStatic();
 wireEvents();
 (function () {
@@ -983,6 +983,7 @@ wireEvents();
     if (ind) { ind.innerHTML = '<span class="dot live"></span>'; ind.title = "Firebase conectado. Todos veis los datos en tiempo real."; }
     Store.subscribe(render);
     if (Store.getState()) render(Store.getState());
+    window.scrollTo({ top: 0, behavior: "instant" });
   }).catch(function () {
     if (ind) { ind.innerHTML = '<span style="color:#ff6b6b">⚠️ Sin conexión</span>'; ind.title = "No se pudo conectar con Firebase. Comprueba la conexión a internet."; }
   });
