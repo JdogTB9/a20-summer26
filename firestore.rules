@@ -1,0 +1,14 @@
+rules_version = '2';
+// Reglas para A20 · Summer 26.
+// Acceso abierto SOLO al documento del torneo (suficiente para un
+// grupo de amigos con el link privado). Todo lo demás, denegado.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /a20/state {
+      allow read, write: if true;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

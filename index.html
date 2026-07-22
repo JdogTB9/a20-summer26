@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A20 · Summer 26 — Olimpiadas Casa Aveinte</title>
+  <meta name="description" content="A20 Summer 26 — Olimpiadas de Casa Aveinte. Programa, pruebas y ranking en directo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏅</text></svg>" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a class="brand" href="#top"><span class="brand-a20">A20</span><span class="brand-sum">Summer 26</span></a>
+    <nav id="nav-links" class="nav-links"></nav>
+    <div class="nav-right">
+      <span id="backend-indicator" class="backend"><span class="dot"></span> …</span>
+      <button id="admin-btn" class="btn small ghost">🔒 Admin</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="hero">
+    <div class="hero-bg"></div>
+    <div class="rings" aria-hidden="true">
+      <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
+      <span class="ring r-yellow"></span><span class="ring r-green"></span>
+    </div>
+    <div class="hero-inner">
+      <div class="torch" aria-hidden="true"><span class="flame"></span><span class="stick"></span></div>
+      <h1 class="title"><span class="a20">A20</span></h1>
+      <p class="subtitle">SUMMER&nbsp;26</p>
+      <p class="tagline">Olimpiadas de Casa Aveinte · 7 atletas · 6 pruebas · 1 leyenda</p>
+      <div class="hero-cta">
+        <a href="#programa" class="btn gold">Ver programa</a>
+        <a href="#ranking" class="btn ghost">Ranking en directo</a>
+      </div>
+    </div>
+    <div class="scroll-hint">▼</div>
+  </section>
+
+  <!-- ATLETAS -->
+  <section id="atletas" class="section">
+    <div class="sec-head reveal"><span class="kicker">Delegaciones</span><h2>Atletas</h2>
+      <p>Cada representante compite bajo la bandera de su país (asignado en la ceremonia de apertura).</p></div>
+    <div id="atletas-grid" class="atletas-grid"></div>
+    <div id="atletas-admin" class="center"></div>
+  </section>
+
+  <!-- PROGRAMA -->
+  <section id="programa" class="section alt">
+    <div class="sec-head reveal"><span class="kicker">Fin de semana</span><h2>Programa</h2>
+      <p>Viernes de apertura, sábado de gloria, domingo de leyendas.</p></div>
+    <div id="programa-grid" class="programa-grid"></div>
+  </section>
+
+  <!-- PRUEBAS -->
+  <section id="pruebas" class="section">
+    <div class="sec-head reveal"><span class="kicker">Disciplinas</span><h2>Las Pruebas</h2>
+      <p>Seis disciplinas olímpicas. Cuatro de día, dos de noche.</p></div>
+    <div id="pruebas-grid" class="pruebas-grid"></div>
+  </section>
+
+  <!-- COMPETICIÓN -->
+  <section id="competicion" class="section alt">
+    <div class="sec-head reveal"><span class="kicker">En juego</span><h2>Competición</h2>
+      <p>Sorteos y resultados de cada prueba. Los sorteos los hace el admin; los resultados los mete cualquiera.</p></div>
+    <div id="competicion-grid" class="competicion-grid"></div>
+  </section>
+
+  <!-- RANKING -->
+  <section id="ranking" class="section">
+    <div class="sec-head reveal"><span class="kicker">Medallero</span><h2>Ranking en directo</h2>
+      <p>Se actualiza solo con cada resultado.</p></div>
+    <div id="podium" class="podium"></div>
+    <div class="table-wrap"><table id="ranking-table" class="ranking-table"></table></div>
+    <div class="center"><button id="reset-all-btn" class="btn ghost small">🧹 Reiniciar torneo (admin)</button></div>
+  </section>
+
+  <footer class="footer">
+    <div class="rings small" aria-hidden="true">
+      <span class="ring r-blue"></span><span class="ring r-black"></span><span class="ring r-red"></span>
+      <span class="ring r-yellow"></span><span class="ring r-green"></span>
+    </div>
+    <p><strong>A20 · SUMMER 26</strong></p>
+    <p class="muted">Casa Aveinte · David · Iñaki · Charlie · Dani · Viti · Javi · Jorge</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
