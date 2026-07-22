@@ -39,7 +39,8 @@ body {
 h1,h2,h3,h4,.kicker,.brand-a20,.title { font-family: "Oswald", sans-serif; letter-spacing: .5px; }
 a { color: inherit; text-decoration: none; }
 .muted { color: var(--muted); } .small { font-size: .85rem; }
-.center { text-align: center; margin-top: 26px; } .ctr { text-align: center; }
+.center { text-align: center; margin-top: 26px; }
+.atletas-admin-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; } .ctr { text-align: center; }
 .btn {
   display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px;
   border: 1px solid var(--line); font-weight: 600; font-size: .95rem; cursor: pointer;
@@ -110,6 +111,7 @@ a { color: inherit; text-decoration: none; }
 .athlete-card .dorsal { font-family: "Oswald"; font-size: 1.4rem; color: var(--gold-3); opacity: .7; min-width: 28px; text-align: center; }
 .flag-big { font-size: 2.2rem; line-height: 1; min-width: 2.4rem; text-align: center; }
 .athlete-info { display: flex; flex-direction: column; gap: 1px; flex: 1; }
+.turn-badge { font-size: .7rem; font-weight: 700; background: linear-gradient(135deg, var(--gold-2), var(--gold)); color: #241d05; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .athlete-card h3 { margin: 0; font-size: 1.15rem; }
 .athlete-card .country { color: var(--muted); font-size: .85rem; margin: 0; }
 .country-select { margin-left: auto; padding: 7px 10px; border-radius: 10px; background: #14141c; color: var(--text); border: 1px solid var(--line); font-size: .85rem; max-width: 180px; }
@@ -274,7 +276,7 @@ a { color: inherit; text-decoration: none; }
   <div class="sec-head reveal"><span class="kicker">Delegaciones</span><h2>Atletas</h2>
     <p>Cada representante compite bajo la bandera de su país (asignado en la ceremonia de apertura).</p></div>
   <div id="atletas-grid" class="atletas-grid"></div>
-  <div id="atletas-admin" class="center"></div>
+  <div id="atletas-admin" class="atletas-admin-btns"></div>
 </section>
 
 <section id="programa" class="section alt">
@@ -335,7 +337,7 @@ var CONFIG = {
     appId: "1:275476693846:web:712d96181525a5d91d0cf7",
   },
   ADMIN_PASSWORD: "A20ADMIN",
-  POINTS: { byPlace: [10, 8, 6, 5, 4, 3, 2], teamWin: 8, teamLose: 0, homeRun: 3 },
+  POINTS: { byPlace: [10, 8, 6, 5, 4, 3, 2], teamWin: 5, teamLose: 0, homeRun: 1 },
   ATHLETES: [
     { id: "david", name: "David", dorsal: 1 },
     { id: "inaki", name: "Iñaki", dorsal: 2 },
@@ -346,22 +348,71 @@ var CONFIG = {
     { id: "jorge", name: "Jorge", dorsal: 7 },
   ],
   COUNTRIES: [
-    { code: "ES", name: "España", flag: "🇪🇸" }, { code: "FR", name: "Francia", flag: "🇫🇷" },
-    { code: "IT", name: "Italia", flag: "🇮🇹" }, { code: "DE", name: "Alemania", flag: "🇩🇪" },
-    { code: "PT", name: "Portugal", flag: "🇵🇹" }, { code: "BR", name: "Brasil", flag: "🇧🇷" },
-    { code: "AR", name: "Argentina", flag: "🇦🇷" }, { code: "US", name: "Estados Unidos", flag: "🇺🇸" },
-    { code: "JP", name: "Japón", flag: "🇯🇵" }, { code: "NL", name: "Países Bajos", flag: "🇳🇱" },
-    { code: "JM", name: "Jamaica", flag: "🇯🇲" }, { code: "NO", name: "Noruega", flag: "🇳🇴" },
+    // Europa (20)
+    { code: "ES", name: "España",          flag: "🇪🇸" },
+    { code: "FR", name: "Francia",         flag: "🇫🇷" },
+    { code: "IT", name: "Italia",          flag: "🇮🇹" },
+    { code: "DE", name: "Alemania",        flag: "🇩🇪" },
+    { code: "PT", name: "Portugal",        flag: "🇵🇹" },
+    { code: "NL", name: "Países Bajos",    flag: "🇳🇱" },
+    { code: "BE", name: "Bélgica",         flag: "🇧🇪" },
+    { code: "PL", name: "Polonia",         flag: "🇵🇱" },
+    { code: "SE", name: "Suecia",          flag: "🇸🇪" },
+    { code: "NO", name: "Noruega",         flag: "🇳🇴" },
+    { code: "DK", name: "Dinamarca",       flag: "🇩🇰" },
+    { code: "CH", name: "Suiza",           flag: "🇨🇭" },
+    { code: "AT", name: "Austria",         flag: "🇦🇹" },
+    { code: "GR", name: "Grecia",          flag: "🇬🇷" },
+    { code: "RU", name: "Rusia",           flag: "🇷🇺" },
+    { code: "GB", name: "Reino Unido",     flag: "🇬🇧" },
+    { code: "IE", name: "Irlanda",         flag: "🇮🇪" },
+    { code: "HR", name: "Croacia",         flag: "🇭🇷" },
+    { code: "CZ", name: "República Checa", flag: "🇨🇿" },
+    { code: "HU", name: "Hungría",         flag: "🇭🇺" },
+    // América (12)
+    { code: "BR", name: "Brasil",          flag: "🇧🇷" },
+    { code: "AR", name: "Argentina",       flag: "🇦🇷" },
+    { code: "US", name: "Estados Unidos",  flag: "🇺🇸" },
+    { code: "MX", name: "México",          flag: "🇲🇽" },
+    { code: "CO", name: "Colombia",        flag: "🇨🇴" },
+    { code: "CL", name: "Chile",           flag: "🇨🇱" },
+    { code: "PE", name: "Perú",            flag: "🇵🇪" },
+    { code: "VE", name: "Venezuela",       flag: "🇻🇪" },
+    { code: "CA", name: "Canadá",          flag: "🇨🇦" },
+    { code: "JM", name: "Jamaica",         flag: "🇯🇲" },
+    { code: "CU", name: "Cuba",            flag: "🇨🇺" },
+    { code: "UY", name: "Uruguay",         flag: "🇺🇾" },
+    // África (8)
+    { code: "MA", name: "Marruecos",       flag: "🇲🇦" },
+    { code: "NG", name: "Nigeria",         flag: "🇳🇬" },
+    { code: "KE", name: "Kenia",           flag: "🇰🇪" },
+    { code: "ZA", name: "Sudáfrica",       flag: "🇿🇦" },
+    { code: "ET", name: "Etiopía",         flag: "🇪🇹" },
+    { code: "EG", name: "Egipto",          flag: "🇪🇬" },
+    { code: "GH", name: "Ghana",           flag: "🇬🇭" },
+    { code: "TN", name: "Túnez",           flag: "🇹🇳" },
+    // Asia (6)
+    { code: "JP", name: "Japón",           flag: "🇯🇵" },
+    { code: "CN", name: "China",           flag: "🇨🇳" },
+    { code: "KR", name: "Corea del Sur",   flag: "🇰🇷" },
+    { code: "IN", name: "India",           flag: "🇮🇳" },
+    { code: "TR", name: "Turquía",         flag: "🇹🇷" },
+    { code: "IR", name: "Irán",            flag: "🇮🇷" },
+    // Oceanía (4)
+    { code: "AU", name: "Australia",       flag: "🇦🇺" },
+    { code: "NZ", name: "Nueva Zelanda",   flag: "🇳🇿" },
+    { code: "FJ", name: "Fiyi",            flag: "🇫🇯" },
+    { code: "PG", name: "Papúa Nueva Guinea", flag: "🇵🇬" },
   ],
   EVENTS: [
-    { id: "futbolgolf", name: "Fútbol-Golf", type: "score", order: "asc", day: "day", slot: "Sábado · Mañana", icon: "⛳",
+    { id: "futbolgolf", name: "Fut-Golf", type: "score", order: "asc", day: "day", slot: "Sábado · Mañana", icon: "⛳",
       tagline: "Recorrido de hoyos por el jardín",
       rules: "Recorrido de \"hoyos\" repartidos por el jardín (dianas, cubos, porterías). Cada jugador intenta meter la pelota en cada hoyo con el menor número de golpes (chuts). Se suman los golpes de todos los hoyos: gana quien menos acumule. Empates permitidos.",
       scoring: "Ranking por golpes totales (asc). 1º=10, 2º=8, 3º=6, 4º=5, 5º=4, 6º=3, 7º=2." },
     { id: "baseball", name: "Béisbol", type: "team", hasHomeRuns: true, teamSizes: [4, 3], day: "day", slot: "Sábado · Mañana", icon: "⚾",
       tagline: "2 equipos · 3 vs 3 + suplente",
       rules: "Dos equipos (3 vs 3 en el campo + 1 suplente en el equipo de 4, rotando). Bola de goma y conos como bases. Se juega un partido; gana el equipo con más carreras.",
-      scoring: "Equipo ganador: +8 pts a cada jugador. Perdedor: 0. Cada home run: +3 pts extra al bateador (acumulable, cuente quien lo consiga)." },
+      scoring: "Equipo ganador: +5 pts a cada jugador. Perdedor: 0. Cada home run: +1 pt extra al bateador (acumulable)." },
     { id: "pingpong", name: "Ping Pong", type: "bracket", day: "day", slot: "Sábado · Tarde", icon: "🏓",
       tagline: "Eliminatoria individual",
       rules: "Torneo de eliminatoria individual (cuadro de 8 con 1 bye). Partidos al mejor de lo que decidáis (recomendado: 1 set a 11, o al mejor de 3). El que pierde queda eliminado.",
@@ -370,14 +421,14 @@ var CONFIG = {
       tagline: "Parejas · con mecánica del jugador solo",
       rules: "Eliminatoria por parejas. Al ser 7, el sorteo forma 3 parejas y 1 jugador solo. El jugador solo espera; cuando una pareja queda eliminada, elige a uno de esos dos como compañero y entra a competir. Los dos de la pareja ganadora suman los mismos puntos.",
       scoring: "Por posición de la pareja: campeones=10 (cada uno), finalistas=8, 3er puesto=6, jugador descartado=5." },
+    { id: "flipcup", name: "Flip Cup", type: "team", hasHomeRuns: false, teamSizes: [4, 3], day: "night", slot: "Sábado · Noche", icon: "🥤",
+      tagline: "Relevo por equipos",
+      rules: "Dos equipos enfrentados a los lados de una mesa, cada jugador con un vaso. A la señal, el primero bebe, deja el vaso en el borde y lo voltea de un toque hasta dejarlo boca abajo; solo entonces bebe el siguiente. Gana el equipo que completa el relevo antes. Se juega al mejor de N mangas.",
+      scoring: "Equipo ganador: +5 pts a cada jugador. Perdedor: 0." },
     { id: "beerpong", name: "Beer Pong", type: "bracket", day: "night", slot: "Sábado · Noche", icon: "🍺",
       tagline: "Eliminatoria individual",
       rules: "Torneo de eliminatoria individual (cuadro de 8 con 1 bye). El clásico: encestar la pelota en los vasos del rival. El que pierde queda eliminado.",
       scoring: "Por posición final. Campeón=10, finalista=8, 3er puesto=6, 4º=5, resto=4." },
-    { id: "flipcup", name: "Flip Cup", type: "team", hasHomeRuns: false, teamSizes: [4, 3], day: "night", slot: "Sábado · Noche", icon: "🥤",
-      tagline: "Relevo por equipos",
-      rules: "Dos equipos enfrentados a los lados de una mesa, cada jugador con un vaso. A la señal, el primero bebe, deja el vaso en el borde y lo voltea de un toque hasta dejarlo boca abajo; solo entonces bebe el siguiente. Gana el equipo que completa el relevo antes. Se juega al mejor de N mangas.",
-      scoring: "Equipo ganador: +8 pts a cada jugador. Perdedor: 0." },
   ],
   SCHEDULE: [
     { day: "Viernes", subtitle: "Ceremonia de Apertura", icon: "🔥", items: [
@@ -388,13 +439,14 @@ var CONFIG = {
       { time: "Noche", title: "Juramento olímpico + antorcha", desc: "Chupito de honor y encendido de la antorcha A20. Sin competición: hoy toca ambiente." },
     ] },
     { day: "Sábado", subtitle: "Las Olimpiadas", icon: "🏅", items: [
-      { time: "Mañana", title: "⛳ Fútbol-Golf", desc: "Recorrido de hoyos por el jardín." },
+      { time: "Mañana", title: "⛳ Fut-Golf", desc: "Recorrido de hoyos por el jardín." },
       { time: "Mañana", title: "⚾ Béisbol", desc: "2 equipos, 3 vs 3 + suplente." },
       { time: "Comida", title: "Avituallamiento", desc: "Recargar pilas para la tarde." },
       { time: "Tarde", title: "🏓 Ping Pong", desc: "Eliminatoria individual, más tranquilo tras comer." },
       { time: "Tarde", title: "🎾 Pádel", desc: "Eliminatoria por parejas." },
-      { time: "Noche", title: "🍺 Beer Pong", desc: "Eliminatoria individual." },
+      { time: "Cena", title: "Cena", desc: "Cenar antes de los juegos de noche." },
       { time: "Noche", title: "🥤 Flip Cup", desc: "Relevo por equipos." },
+      { time: "Noche", title: "🍺 Beer Pong", desc: "Eliminatoria individual." },
       { time: "Cierre", title: "🏆 Entrega de premios", desc: "Medallero, pódium y fotos. Farolillo rojo para el último." },
     ] },
     { day: "Domingo", subtitle: "Clausura", icon: "🌅", items: [
@@ -639,21 +691,37 @@ function render(state) {
 
 function renderAtletas(state) {
   var admin = isAdmin();
-  $("#atletas-grid").innerHTML = ATHLETES.map(function (a, i) {
+  var order = state.athleteOrder;
+  var orderedAthletes = order
+    ? order.map(function (id) { return athleteById[id]; }).filter(Boolean)
+    : ATHLETES;
+  // Añadir atletas que no estén en el orden guardado (seguridad)
+  ATHLETES.forEach(function (a) { if (!orderedAthletes.find(function (o) { return o.id === a.id; })) orderedAthletes.push(a); });
+  $("#atletas-grid").innerHTML = orderedAthletes.map(function (a, i) {
     var c = countryOf(state, a.id);
     var opts = COUNTRIES.map(function (co) { return '<option value="' + co.code + '" ' + (c && c.code === co.code ? "selected" : "") + '>' + co.flag + " " + co.name + "</option>"; }).join("");
+    var turnLabel = order ? '<span class="turn-badge">' + (i + 1) + 'º elige</span>' : "";
     return '<div class="athlete-card reveal" style="--d:' + (i * 0.04) + 's">' +
       '<span class="dorsal">' + a.dorsal + '</span>' +
       '<span class="flag-big">' + (c ? c.flag : "🏳️") + '</span>' +
       '<div class="athlete-info"><h3>' + a.name + '</h3><p class="country">' + (c ? c.name : "Sin país asignado") + '</p></div>' +
+      turnLabel +
       (admin ? '<select class="country-select" data-country-for="' + a.id + '"><option value="">— país —</option>' + opts + '</select>' : "") +
       '</div>';
   }).join("");
-  $("#atletas-admin").innerHTML = admin ? '<button class="btn gold" data-action="draw-countries">🎲 Sortear países al azar</button>' : "";
+  $("#atletas-admin").innerHTML = admin
+    ? '<button class="btn gold" data-action="draw-order">🎲 Sortear orden de elección</button>' +
+      '<button class="btn ghost" data-action="draw-countries">🎲 Sortear países al azar</button>'
+    : "";
 }
 
 function renderCompeticion(state) {
   var admin = isAdmin();
+  // Preservar qué secciones están cerradas manualmente por el usuario
+  var closed = new Set();
+  document.querySelectorAll(".comp-block").forEach(function (d) {
+    if (!d.open) closed.add(d.dataset.evId);
+  });
   $("#competicion-grid").innerHTML = EVENTS.map(function (ev) {
     var st = state.events && state.events[ev.id];
     var body = "";
@@ -667,10 +735,14 @@ function renderCompeticion(state) {
         ? '<button class="btn small gold" data-action="draw-event" data-ev="' + ev.id + '">🎲 Sortear</button>'
         : '<button class="btn small ghost" data-action="draw-event" data-ev="' + ev.id + '">🔁 Re-sortear</button>') +
       '<button class="btn small ghost" data-action="reset-event" data-ev="' + ev.id + '">🧹 Reiniciar</button></div>') : "";
-    return '<details class="comp-block" ' + (drawn ? "open" : "") + '>' +
+    return '<details class="comp-block" data-ev-id="' + ev.id + '" ' + (drawn ? "open" : "") + '>' +
       '<summary><span class="ev-ic">' + ev.icon + '</span> ' + ev.name + ' <span class="tag ' + ev.day + '">' + ev.slot + '</span></summary>' +
       '<div class="comp-inner">' + adminBtns + body + '</div></details>';
   }).join("");
+  // Restaurar secciones que el usuario cerró manualmente
+  document.querySelectorAll(".comp-block").forEach(function (d) {
+    if (closed.has(d.dataset.evId)) d.removeAttribute("open");
+  });
 }
 
 function matchCell(state, ev, m, opts) {
@@ -759,13 +831,13 @@ function renderTeam(state, ev, st) {
 function renderRanking(state) {
   var rows = computeStandings(state, EVENTS, ATHLETES, POINTS);
   var top3 = rows.slice(0, 3);
-  var order = [1, 0, 2];
-  $("#podium").innerHTML = order.map(function (idx) {
-    var r = top3[idx]; if (!r) return "";
+  var order = [1, 0, 2]; // visual: plata(izq) · oro(centro) · bronce(der)
+  $("#podium").innerHTML = order.map(function (pos) {
+    var r = top3[pos]; if (!r) return ""; // pos=0→1º oro, pos=1→2º plata, pos=2→3º bronce
     var c = countryOf(state, r.id);
-    var cls = idx === 0 ? "silver" : idx === 1 ? "gold" : "bronze";
-    var medal = idx === 0 ? "🥈" : idx === 1 ? "🥇" : "🥉";
-    var h = 60 + (idx === 1 ? 60 : idx === 0 ? 30 : 10);
+    var cls = pos === 0 ? "gold" : pos === 1 ? "silver" : "bronze";
+    var medal = pos === 0 ? "🥇" : pos === 1 ? "🥈" : "🥉";
+    var h = 60 + (pos === 0 ? 60 : pos === 1 ? 30 : 10);
     return '<div class="pod ' + cls + '" style="--h:' + h + 'px"><div class="pod-name">' + (c ? c.flag + " " : "") + r.name + '</div><div class="pod-medal">' + medal + '</div><div class="pod-bar"><span>' + r.total + '</span></div></div>';
   }).join("");
   var evHead = EVENTS.map(function (e) { return '<th title="' + e.name + '">' + e.icon + '</th>'; }).join("");
@@ -802,9 +874,13 @@ function onClick(e) {
   var ev = el.dataset.ev ? eventById[el.dataset.ev] : null;
   var st = ev && state.events ? state.events[ev.id] : null;
 
-  var adminOnly = ["draw-event", "reset-event", "draw-countries"];
+  var adminOnly = ["draw-event", "reset-event", "draw-countries", "draw-order"];
   if (adminOnly.indexOf(a) !== -1 && !isAdmin()) { window.alert("Solo el admin puede hacer sorteos."); return; }
 
+  if (a === "draw-order") {
+    var newOrder = shuffle(ATHLETES.map(function (x) { return x.id; }));
+    Store.set({ athleteOrder: newOrder });
+  }
   if (a === "draw-countries") {
     var shuffled = shuffle(COUNTRIES), assign = {};
     ATHLETES.forEach(function (at, i) { var c = shuffled[i]; assign[at.id] = { code: c.code, name: c.name, flag: c.flag }; });
